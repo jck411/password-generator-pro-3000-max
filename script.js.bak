@@ -394,15 +394,6 @@ class PasswordGenerator {
             this.passwordOutput.style.boxShadow = '';
         }, 300);
     }
-
-    toggleMemorableInfo() {
-        const infoSection = document.getElementById('memorableInfo');
-        if (this.options.humanMemorable.checked) {
-            infoSection.style.display = 'flex';
-        } else {
-            infoSection.style.display = 'none';
-        }
-    }
 }
 
 // Matrix rain effect

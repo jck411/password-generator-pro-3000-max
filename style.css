@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Source Code Pro', monospace;
-    background: #000000;
+    background: #0a0a0a;
     color: #00ff41;
     overflow-x: hidden;
     min-height: 100vh;
@@ -22,9 +22,9 @@ body {
     width: 100%;
     height: 100%;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(255, 0, 255, 0.03) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 0, 255, 0.01) 0%, transparent 50%);
     z-index: -2;
 }
 
@@ -43,15 +43,17 @@ body {
     position: absolute;
     background: #00ff41;
     border-radius: 50%;
-    opacity: 0.4;
+    opacity: 0.2;
 }
 
 .particle:nth-child(odd) {
     background: #00ffff;
+    opacity: 0.15;
 }
 
 .particle:nth-child(3n) {
     background: #ff00ff;
+    opacity: 0.1;
 }
 
 /* Container */
@@ -71,9 +73,8 @@ body {
     font-size: clamp(1.5rem, 4vw, 3rem);
     margin-bottom: 1rem;
     text-shadow: 
-        0 0 10px #00ff41,
-        0 0 20px #00ff41,
-        0 0 40px #00ff41;
+        0 0 5px #00ff41,
+        0 0 10px #00ff41;
 }
 
 .title-text {
@@ -84,9 +85,8 @@ body {
 .title-text.accent {
     color: #00ffff;
     text-shadow: 
-        0 0 10px #00ffff,
-        0 0 20px #00ffff,
-        0 0 40px #00ffff;
+        0 0 5px #00ffff,
+        0 0 10px #00ffff;
 }
 
 .title-text.ultimate {
@@ -95,38 +95,36 @@ body {
     display: block;
     margin-top: 0.5rem;
     text-shadow: 
-        0 0 10px #ff00ff,
-        0 0 20px #ff00ff,
-        0 0 40px #ff00ff;
+        0 0 5px #ff00ff,
+        0 0 10px #ff00ff;
     animation: ultimate-pulse 2s ease-in-out infinite alternate;
 }
 
 @keyframes ultimate-pulse {
     from { 
         text-shadow: 
-            0 0 10px #ff00ff,
-            0 0 20px #ff00ff,
-            0 0 40px #ff00ff;
+            0 0 5px #ff00ff,
+            0 0 10px #ff00ff;
     }
     to { 
         text-shadow: 
-            0 0 20px #ff00ff,
-            0 0 30px #ff00ff,
-            0 0 60px #ff00ff;
+            0 0 10px #ff00ff,
+            0 0 15px #ff00ff;
     }
 }
 
 .subtitle {
     text-align: center;
     font-size: 1.2rem;
-    color: #00cc33;
+    color: #00ff88;
     margin-bottom: 3rem;
-    opacity: 0.8;
+    opacity: 0.9;
+    text-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
 }
 
 /* Generator card */
 .generator-card {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.95);
     border: 2px solid #00ff41;
     border-radius: 20px;
     padding: 2rem;
@@ -134,6 +132,7 @@ body {
     backdrop-filter: blur(10px);
     box-shadow: 
         0 0 30px rgba(0, 255, 65, 0.3),
+        0 0 60px rgba(0, 255, 65, 0.2),
         inset 0 0 30px rgba(0, 255, 65, 0.1);
     position: relative;
     overflow: hidden;
@@ -149,6 +148,7 @@ body {
     background: linear-gradient(45deg, #00ff41, #00ffff, #ff00ff, #00ff41);
     border-radius: 20px;
     z-index: -1;
+    opacity: 0.6;
 }
 
 /* Password display */
@@ -162,14 +162,14 @@ body {
 #passwordOutput {
     flex: 1;
     padding: 1rem 1.5rem;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8);
     border: 2px solid #00ff41;
     border-radius: 10px;
-    color: #00ff41;
+    color: #00ff88;
     font-family: 'Source Code Pro', monospace;
     font-size: 1.2rem;
     font-weight: 600;
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
     outline: none;
     transition: all 0.3s ease;
 }
@@ -225,9 +225,13 @@ body {
 .control-group label {
     display: block;
     margin-bottom: 0.5rem;
-    color: #00ff41;
+    color: #00ff88;
     font-weight: 600;
     font-size: 1.1rem;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 136, 0.8),
+        0 0 2px rgba(0, 255, 136, 0.5);
 }
 
 #length {
@@ -286,7 +290,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.6);
     border-radius: 8px;
     transition: all 0.3s ease;
 }
@@ -303,23 +307,31 @@ body {
 }
 
 .option label {
-    color: #00ff41;
+    color: #00ff88;
     cursor: pointer;
     font-weight: 500;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 136, 0.8),
+        0 0 2px rgba(0, 255, 136, 0.5);
 }
 
 /* Strength meter */
 .strength-meter {
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.8);
     border: 1px solid #00ff41;
     border-radius: 10px;
     padding: 1rem;
 }
 
 .strength-label {
-    color: #00ff41;
+    color: #00ff88;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 136, 0.8),
+        0 0 2px rgba(0, 255, 136, 0.5);
 }
 
 .strength-bar {
@@ -342,7 +354,11 @@ body {
 .strength-text {
     text-align: center;
     font-weight: 600;
-    color: #00ff41;
+    color: #00ff88;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 136, 0.8),
+        0 0 2px rgba(0, 255, 136, 0.5);
 }
 
 /* Generate button */
@@ -401,15 +417,23 @@ body {
 }
 
 .feature h3 {
-    color: #00ff41;
+    color: #00ff88;
     font-family: 'Orbitron', monospace;
     font-weight: 700;
     margin-bottom: 1rem;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 136, 0.8),
+        0 0 2px rgba(0, 255, 136, 0.5);
 }
 
 .feature p {
-    color: #00cc33;
-    opacity: 0.8;
+    color: #00ff66;
+    opacity: 0.9;
+    text-shadow: 
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 102, 0.8),
+        0 0 2px rgba(0, 255, 102, 0.5);
 }
 
 /* Success message */

@@ -114,23 +114,20 @@ class PasswordGenerator {
 
     createParticles() {
         const particlesContainer = document.getElementById('particles');
-        const particleCount = 50;
+        const particleCount = 30; // Reduced count
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             
             // Random size
-            const size = Math.random() * 4 + 2;
+            const size = Math.random() * 3 + 1;
             particle.style.width = size + 'px';
             particle.style.height = size + 'px';
             
             // Random position
             particle.style.left = Math.random() * 100 + '%';
             particle.style.top = Math.random() * 100 + '%';
-            
-            // Random animation delay
-            particle.style.animationDelay = Math.random() * 6 + 's';
             
             particlesContainer.appendChild(particle);
         }
@@ -426,89 +423,11 @@ class PasswordGenerator {
     }
 }
 
-// Matrix rain effect
-function createMatrixRain() {
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    
-    canvas.style.position = 'fixed';
-    canvas.style.top = '0';
-    canvas.style.left = '0';
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.zIndex = '-1';
-    canvas.style.opacity = '0.1';
-    
-    document.body.appendChild(canvas);
-    
-    const resizeCanvas = () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    };
-    
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    
-    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-    const charArray = chars.split('');
-    
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-    const drops = [];
-    
-    for (let x = 0; x < columns; x++) {
-        drops[x] = 1;
-    }
-    
-    function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = '#00ff41';
-        ctx.font = fontSize + 'px monospace';
-        
-        for (let i = 0; i < drops.length; i++) {
-            const text = charArray[Math.floor(Math.random() * charArray.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }
-    
-    setInterval(draw, 35);
-}
+// Static background effects only
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new PasswordGenerator();
-    createMatrixRain();
-    
-    // Add some interactive effects
-    document.addEventListener('mousemove', (e) => {
-        const cursor = document.querySelector('.cursor-glow');
-        if (!cursor) {
-            const glow = document.createElement('div');
-            glow.className = 'cursor-glow';
-            glow.style.cssText = `
-                position: fixed;
-                width: 20px;
-                height: 20px;
-                background: radial-gradient(circle, rgba(0, 255, 65, 0.3), transparent);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transition: transform 0.1s ease;
-            `;
-            document.body.appendChild(glow);
-        }
-        
-        const glow = document.querySelector('.cursor-glow');
-        glow.style.left = e.clientX - 10 + 'px';
-        glow.style.top = e.clientY - 10 + 'px';
-    });
     
     // Add keyboard shortcuts
     document.addEventListener('keydown', (e) => {

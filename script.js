@@ -363,6 +363,7 @@ class PasswordGenerator {
     }
 
     showSuccessMessage() {
+        this.successMessage.querySelector('span').textContent = '🔥 PASSWORD COPIED TO ULTIMATE CLIPBOARD! 🔥';
         this.successMessage.classList.add('show');
         setTimeout(() => {
             this.successMessage.classList.remove('show');

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="matrix-bg"></div>
+        <div class="particles" id="particles"></div>
+        
+        <header>
+            <h1 class="title">
+                <span class="title-text">PASSWORD</span>
+                <span class="title-text">GENERATOR</span>
+                <span class="title-text accent">PRO</span>
+            </h1>
+            <p class="subtitle">Generate secure passwords with style</p>
+        </header>
+
+        <main>
+            <div class="generator-card">
+                <div class="password-display">
+                    <input type="text" id="passwordOutput" readonly placeholder="Your password will appear here...">
+                    <button id="copyBtn" class="copy-btn" title="Copy to clipboard">
+                        <span class="copy-icon">📋</span>
+                        <span class="copy-text">Copy</span>
+                    </button>
+                </div>
+
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="length">Password Length: <span id="lengthValue">16</span></label>
+                        <input type="range" id="length" min="8" max="128" value="16">
+                    </div>
+
+                    <div class="options">
+                        <div class="option">
+                            <input type="checkbox" id="uppercase" checked>
+                            <label for="uppercase">ABC Uppercase</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="lowercase" checked>
+                            <label for="lowercase">abc Lowercase</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="numbers" checked>
+                            <label for="numbers">123 Numbers</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="symbols">
+                            <label for="symbols">@#$ Symbols</label>
+                        </div>
+                        <div class="option">
+                            <input type="checkbox" id="avoidAmbiguous">
+                            <label for="avoidAmbiguous">⚡ Avoid Ambiguous</label>
+                        </div>
+                    </div>
+
+                    <div class="strength-meter">
+                        <div class="strength-label">Password Strength:</div>
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText">Medium</div>
+                    </div>
+
+                    <button id="generateBtn" class="generate-btn">
+                        <span class="btn-text">Generate Password</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure</h3>
+                    <p>Uses cryptographically secure random generation</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Fast</h3>
+                    <p>Instant password generation with live preview</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Beautiful</h3>
+                    <p>Cyberpunk-inspired visual effects</p>
+                </div>
+            </div>
+        </main>
+
+        <div class="success-message" id="successMessage">
+            <span>Password copied to clipboard!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -130,7 +130,7 @@ const MODE_CONFIGS = {
     words: { min: 3, max: 12, default: 4, label: "Words" }
 };
 
-// Password Generator with Visual Effects
+// Password Generator
 class PasswordGenerator {
     constructor() {
         this.passwordCount = 1;
@@ -138,7 +138,6 @@ class PasswordGenerator {
         this.currentMode = 'regular'; // 'regular' or 'words'
         this.initializeElements();
         this.setupEventListeners();
-        this.createParticles();
         this.generateAllPasswords();
     }
 
@@ -499,27 +498,6 @@ class PasswordGenerator {
         const firstInput = this.passwordList.querySelector('.password-output');
         if (firstInput) {
             this.updateStrength(this.calculateStrength(firstInput.value));
-        }
-    }
-
-    createParticles() {
-        const particlesContainer = document.getElementById('particles');
-        const particleCount = 30; // Reduced count
-
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-
-            // Random size
-            const size = Math.random() * 3 + 1;
-            particle.style.width = size + 'px';
-            particle.style.height = size + 'px';
-
-            // Random position
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = Math.random() * 100 + '%';
-
-            particlesContainer.appendChild(particle);
         }
     }
 
@@ -915,7 +893,7 @@ class PasswordGenerator {
     }
 
     showSuccessMessage() {
-        this.successMessage.querySelector('span').textContent = '🔥 PASSWORD COPIED TO ULTIMATE CLIPBOARD! 🔥';
+        this.successMessage.querySelector('span').textContent = 'Password copied to clipboard.';
         this.successMessage.classList.add('show');
         setTimeout(() => {
             this.successMessage.classList.remove('show');

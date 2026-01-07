@@ -1,32 +1,30 @@
-# 🔐 Password Generator Pro 3000 MAX: Ultimate Hyper Edition
+# 🔐 4gotagain.com — Fast passwords that stick
 
-The ULTIMATE password generator with MAXIMUM style and cyberpunk-inspired visual effects built with vanilla HTML, CSS, and JavaScript.
+A memory-first password generator focused on helping you create passwords you can actually recall, with a lightweight UI for fast load times.
 
-![Password Generator 3000 MAX](https://img.shields.io/badge/Status-LIVE-brightgreen) ![Security](https://img.shields.io/badge/Security-ULTRA%20SECURE-blue) ![No%20Dependencies](https://img.shields.io/badge/Power-UNLIMITED-orange)
+![Status](https://img.shields.io/badge/Status-LIVE-brightgreen) ![Focus](https://img.shields.io/badge/Focus-Memory%20First-6ef3c3) ![No%20Dependencies](https://img.shields.io/badge/Dependencies-None-56e8ff)
 
 ## ✨ Features
 
-- **🔒 Cryptographically Secure**: Uses `crypto.getRandomValues()` for true random generation
-- **🧠 Human-Memorable Mode**: Generate passwords using actual words and mnemonics
-- **🎨 Cyberpunk Aesthetics**: Matrix rain, particle effects, and glowing animations
-- **⚡ Real-time Generation**: Live password generation as you adjust settings
-- **📊 Strength Meter**: Visual feedback on password security
-- **📋 One-Click Copy**: Copy passwords to clipboard with a single click
-- **🎮 Easter Eggs**: Hidden Konami code for ultra-secure passwords
+- **🧠 Memorability modes**: Human-memorable, rhyming, and object-based patterns
+- **⚡ Snappy UI**: No external fonts or heavy effects
+- **📊 Strength meter**: Quick feedback for longer or more complex passwords
+- **📋 One-click copy**: Copy passwords to clipboard instantly
+- **🔒 Cryptographically secure**: Uses `crypto.getRandomValues()` for randomness
 - **♿ Accessible**: Keyboard shortcuts and reduced motion support
-- **📱 Responsive**: Works perfectly on desktop and mobile devices
+- **📱 Responsive**: Works well on mobile and desktop
 
 ## 🚀 Quick Start
 
 1. **Clone or download** this repository
 2. **Open `index.html`** in any modern web browser
-3. **Start generating** secure passwords!
+3. **Start generating** memorable, secure passwords
 
-That's it! No build process, no dependencies, no server required.
+No build tools, no dependencies, no server required.
 
 ## 🎯 How to Use
 
-1. **Adjust password length** using the slider (8-128 characters)
+1. **Adjust length/word count** using the slider
 2. **Choose character types**:
    - ✅ Uppercase letters (A-Z)
    - ✅ Lowercase letters (a-z)
@@ -34,12 +32,14 @@ That's it! No build process, no dependencies, no server required.
    - ⭐ Symbols (!@#$%^&*...)
    - ⚡ Avoid ambiguous characters (O/0, l/1, etc.)
    - 🧠 **Human-Memorable**: Use actual words for easier recall
-3. **Click "Generate Password"** or press spacebar
-4. **Copy with one click** or use Ctrl+C
+   - 🎵 **Rhyming**: Rhymes are easier to remember
+   - 🎁 **Objects Only**: Visualize real objects to improve recall
+3. **Click "Generate"** or press spacebar
+4. **Copy with one click**
 
-### 🧠 Human-Memorable Mode
+### 🧠 Memory-Focused Modes
 
-When enabled, the generator creates passwords using actual English words from curated lists:
+When enabled, the generator creates passwords using curated word lists:
 
 - **Adjectives**: bright, swift, brave, calm, clever...
 - **Animals**: eagle, tiger, lion, wolf, bear...
@@ -53,28 +53,18 @@ When enabled, the generator creates passwords using actual English words from cu
 - `Swift.forest:twelve=brave`
 - `Calm-Dragon-Swim-Nine+Kind`
 
-This creates passwords that are both secure and much easier to remember!
-
 ## ⌨️ Keyboard Shortcuts
 
 - `Space` - Generate new password
-- `Ctrl+C` - Copy current password
 - **Konami Code** - Activate ultra-secure mode (↑↑↓↓←→←→BA)
 
 ## 🔧 Technical Details
 
-### Security Features
+### Security
 - Uses `crypto.getRandomValues()` for cryptographically secure random generation
 - No passwords are stored or transmitted anywhere
 - All generation happens locally in your browser
 - No external dependencies or tracking
-
-### Visual Effects
-- **Matrix Rain**: Animated background with falling characters
-- **Particle System**: Floating particles with random animations
-- **Glow Effects**: CSS text shadows and box shadows
-- **Smooth Animations**: CSS transitions and keyframe animations
-- **Interactive Elements**: Hover effects and button animations
 
 ### Browser Compatibility
 - ✅ Chrome 37+
@@ -86,9 +76,9 @@ This creates passwords that are both secure and much easier to remember!
 ## 📁 Project Structure
 
 ```
-password-generator/
+4gotagain/
 ├── index.html          # Main HTML structure
-├── style.css           # All styling and animations
+├── style.css           # Styling
 ├── script.js           # JavaScript functionality
 ├── README.md           # This file
 └── LICENSE             # MIT License
@@ -96,26 +86,9 @@ password-generator/
 
 ## 🎨 Customization
 
-### Colors
-Edit the CSS variables in `style.css`:
-```css
-:root {
-    --primary-green: #00ff41;
-    --secondary-cyan: #00ffff;
-    --accent-magenta: #ff00ff;
-    --background-dark: #0a0a0a;
-}
-```
-
-### Visual Effects
-- **Particles**: Adjust count in `script.js` (line 47)
-- **Matrix Rain**: Modify character set and speed (lines 155-170)
-- **Animation Speed**: Change duration values in CSS animations
-
-### Password Options
-- **Length Range**: Modify min/max in HTML (line 29)
-- **Character Sets**: Edit charset building in `script.js`
-- **Strength Calculation**: Adjust scoring algorithm (lines 110-135)
+- **Colors & spacing**: Edit the styles in `style.css`
+- **Word lists**: Update the lists at the top of `script.js`
+- **Strength scoring**: Adjust `calculateStrength()` in `script.js`
 
 ## 🤝 Contributing
 
@@ -125,24 +98,9 @@ Edit the CSS variables in `style.css`:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-### Ideas for Contributions
-- 🌈 New color themes
-- 🎭 Additional visual effects
-- 🔧 More password options
-- 📱 Better mobile experience
-- ♿ Improved accessibility
-- 🧪 Additional Easter eggs
-
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Font**: Orbitron and Source Code Pro from Google Fonts
-- **Inspiration**: Cyberpunk aesthetics and Matrix movie
-- **Security**: Web Crypto API for secure random generation
-- **Community**: All contributors and users
 
 ## ⚠️ Disclaimer
 
@@ -154,6 +112,4 @@ While this tool uses cryptographically secure random generation, always:
 
 ---
 
-**Made with 💚 and MAXIMUM ☕**
-
-*Generate ULTRA-STRONG, remember NOTHING.*
+**Made with 💚 for people who forget.**

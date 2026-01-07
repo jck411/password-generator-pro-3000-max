@@ -411,16 +411,23 @@ class PasswordGenerator {
         newSlot.dataset.index = this.passwordCount - 1;
         newSlot.innerHTML = `
             <div class="password-display">
-                <input type="text" class="password-output" readonly placeholder="Your password will appear here...">
+                <label for="password-${this.passwordCount - 1}" class="visually-hidden">Generated password</label>
+                <input type="text" id="password-${this.passwordCount - 1}" class="password-output" readonly placeholder="Your password will appear here..." aria-label="Generated password">
                 <div class="password-actions">
                     <button class="action-btn generate-row-btn" title="Generate new password" aria-label="Generate new password">
-                        <span class="btn-icon" aria-hidden="true">&#x21bb;</span>
+                        <svg class="btn-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                        </svg>
                     </button>
-                    <button class="action-btn copy-btn" title="Copy to clipboard">
-                        <span class="btn-icon" aria-hidden="true">&#x2398;</span>
+                    <button class="action-btn copy-btn" title="Copy to clipboard" aria-label="Copy password to clipboard">
+                        <svg class="btn-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                        </svg>
                     </button>
                     <button class="action-btn remove-row-btn" title="Remove this password" aria-label="Remove this password">
-                        <span class="btn-icon" aria-hidden="true">&times;</span>
+                        <svg class="btn-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+                        </svg>
                     </button>
                 </div>
             </div>

@@ -465,36 +465,16 @@ header {
     color: var(--bg-deep);
 }
 
-/* Per-row action buttons */
-.generate-row-btn {
-    padding: 0.5rem 0.75rem;
-    background: var(--accent);
-    border: none;
-    border-radius: var(--radius-sm);
-    color: var(--bg-deep);
-    font-family: inherit;
-    font-size: 0.75rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all var(--transition-base);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.generate-row-btn:hover {
-    filter: brightness(1.1);
-    box-shadow: 0 2px 8px rgba(226, 168, 75, 0.25);
-}
-
-.remove-row-btn {
-    padding: 0.5rem 0.65rem;
+/* Unified action buttons for password rows */
+.action-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
     background: var(--bg-elevated);
     border: 1px solid var(--border-default);
     border-radius: var(--radius-sm);
     color: var(--text-secondary);
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
     transition: all var(--transition-base);
     display: flex;
@@ -502,14 +482,56 @@ header {
     justify-content: center;
 }
 
-.remove-row-btn:hover {
+.action-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+.action-btn .btn-icon {
+    line-height: 1;
+    transition: transform var(--transition-base);
+}
+
+/* Generate button - accent colored */
+.action-btn.generate-row-btn {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-deep);
+}
+
+.action-btn.generate-row-btn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 2px 8px rgba(226, 168, 75, 0.25);
+}
+
+/* Spinning animation for refresh */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.action-btn.generate-row-btn.spinning .btn-icon {
+    animation: spin 0.5s ease-out;
+}
+
+/* Remove button hover */
+.action-btn.remove-row-btn:hover {
     background: rgba(224, 82, 82, 0.15);
     border-color: #e05252;
     color: #e05252;
 }
 
-.remove-icon {
-    line-height: 1;
+/* Copy button success state */
+.action-btn.copy-btn.copied {
+    background: var(--accent-cool);
+    border-color: var(--accent-cool);
+    color: var(--bg-deep);
 }
 
 .tips-btn.active {
@@ -553,14 +575,9 @@ header {
 .strength-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg,
-            var(--strength-weak) 0%,
-            var(--strength-fair) 25%,
-            var(--strength-good) 50%,
-            var(--strength-strong) 75%,
-            var(--strength-excellent) 100%);
+    background: var(--strength-weak);
     border-radius: 3px;
-    transition: width var(--transition-slow);
+    transition: width var(--transition-slow), background var(--transition-slow);
 }
 
 .strength-text {

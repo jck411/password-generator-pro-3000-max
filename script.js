@@ -375,6 +375,9 @@ class PasswordGenerator {
 
             if (generateBtn) {
                 const passwordSlot = generateBtn.closest('.password-slot');
+                // Trigger spin animation
+                generateBtn.classList.add('spinning');
+                setTimeout(() => generateBtn.classList.remove('spinning'), 500);
                 this.generatePasswordForSlot(passwordSlot);
                 this.updateStrengthFromFirst();
             }
@@ -410,14 +413,14 @@ class PasswordGenerator {
             <div class="password-display">
                 <input type="text" class="password-output" readonly placeholder="Your password will appear here...">
                 <div class="password-actions">
-                    <button class="generate-row-btn" title="Generate this password" aria-label="Generate this password">
-                        <span class="btn-text">Gen</span>
+                    <button class="action-btn generate-row-btn" title="Generate new password" aria-label="Generate new password">
+                        <span class="btn-icon">🔄</span>
                     </button>
-                    <button class="copy-btn" title="Copy to clipboard">
-                        <span class="copy-icon">📋</span>
+                    <button class="action-btn copy-btn" title="Copy to clipboard">
+                        <span class="btn-icon">📋</span>
                     </button>
-                    <button class="remove-row-btn" title="Remove this password" aria-label="Remove this password">
-                        <span class="remove-icon">×</span>
+                    <button class="action-btn remove-row-btn" title="Remove this password" aria-label="Remove this password">
+                        <span class="btn-icon">×</span>
                     </button>
                 </div>
             </div>
@@ -839,21 +842,22 @@ class PasswordGenerator {
         let text, color;
         if (score < 40) {
             text = 'Weak';
-            color = '#ff0000';
+            color = '#e05252';  // Red
         } else if (score < 60) {
             text = 'Fair';
-            color = '#ff8800';
+            color = '#e08c52';  // Orange
         } else if (score < 80) {
             text = 'Strong';
-            color = '#ffff00';
+            color = '#e2a84b';  // Amber
         } else {
             text = 'Very Strong';
-            color = '#00ff41';
+            color = '#52c4a0';  // Green
         }
 
         this.strengthText.textContent = text;
         this.strengthText.style.color = color;
-        this.strengthFill.style.background = `linear-gradient(90deg, #ff0000, #ff8800, #ffff00, #88ff00, ${color})`;
+        // Use solid color instead of gradient
+        this.strengthFill.style.background = color;
     }
 
     async copyToClipboard(input, copyBtn) {

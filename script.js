@@ -150,7 +150,7 @@ class PasswordGenerator {
         this.lengthLabelText = document.getElementById('lengthLabelText');
         this.strengthDot = document.getElementById('strengthDot');
         this.strengthText = document.getElementById('strengthText');
-        this.successMessage = document.getElementById('successMessage');
+        this.copyFeedback = document.getElementById('copyFeedback');
 
         // Options
         this.options = {
@@ -415,19 +415,14 @@ class PasswordGenerator {
                 <input type="text" id="password-${this.passwordCount - 1}" class="password-output" readonly placeholder="Your password will appear here..." aria-label="Generated password">
                 <div class="password-actions">
                     <button class="action-btn generate-row-btn" title="Generate new password" aria-label="Generate new password">
-                        <svg class="btn-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
-                        </svg>
+                        <!-- Generate Icon -->
                     </button>
                     <button class="action-btn copy-btn" title="Copy to clipboard" aria-label="Copy password to clipboard">
-                        <svg class="btn-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-                        </svg>
+                        <span class="copy-icon-default"></span>
+                        <span class="copy-icon-success"></span>
                     </button>
                     <button class="action-btn remove-row-btn" title="Remove this password" aria-label="Remove this password">
-                        <svg class="btn-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
-                        </svg>
+                        <!-- Remove Icon -->
                     </button>
                 </div>
             </div>
@@ -878,6 +873,10 @@ class PasswordGenerator {
         } catch (err) {
             // Fallback for older browsers
             this.fallbackCopyTextToClipboard(password, copyBtn);
+        }CopyFeedback(copyBtn);
+        } catch (err) {
+            // Fallback for older browsers
+            this.fallbackCopyTextToClipboard(password, copyBtn);
         }
     }
 
@@ -894,8 +893,7 @@ class PasswordGenerator {
 
         try {
             document.execCommand('copy');
-            this.showSuccessMessage();
-            this.animateCopyButton(copyBtn);
+            this.showCopyFeedback(copyBtn);
         } catch (err) {
             console.error('Fallback: Oops, unable to copy', err);
         }
@@ -903,16 +901,10 @@ class PasswordGenerator {
         document.body.removeChild(textArea);
     }
 
-    showSuccessMessage() {
-        this.successMessage.querySelector('span').textContent = 'Password copied to clipboard.';
-        this.successMessage.classList.add('show');
+    showCopyFeedback(copyBtn) {
+        copyBtn.classList.add('copied');
         setTimeout(() => {
-            this.successMessage.classList.remove('show');
-        }, 2000);
-    }
-
-    animateButton() {
-        this.generateBtn.style.transform = 'translateY(-3px) scale(1.05)';
+            copyBtn.classList.remove('copied(-3px) scale(1.05)';
         setTimeout(() => {
             this.generateBtn.style.transform = '';
         }, 200);
@@ -922,11 +914,7 @@ class PasswordGenerator {
         copyBtn.classList.add('copied');
 
         setTimeout(() => {
-            copyBtn.classList.remove('copied');
-        }, 1500);
-    }
-
-    animatePasswordInput(input) {
+        // This method is now deprecated in favor of the CSS-only animation in showCopyFeedbackrdInput(input) {
         input.style.transform = 'scale(1.02)';
         input.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.5)';
 

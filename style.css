@@ -492,40 +492,81 @@ header {
 }
 
 .action-btn .btn-icon {
-    font-size: 1.25rem;
-    font-weight: 700;
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform var(--transition-base);
-    width: 1.25em;
-    height: 1.25em;
+    display: none; /* Hide the old SVG icons */
 }
 
 /* Generate button - amber accent */
 .action-btn.generate-row-btn {
     border-color: rgba(226, 168, 75, 0.4);
     color: var(--accent);
+    position: relative;
 }
 
-.action-btn.generate-row-btn:hover {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent);
+.action-btn.generate-row-btn::before {
+    content: '⟳';
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: transform var(--transition-base);
 }
 
-/* Copy button - amber accent */
+.action-btn.generate-row-btn:hover::before {
+    transform: rotate(90deg);
+}
+
+.action-btn.generate-row-btn.spinning::before {
+    animation: spin 0.5s ease-out;
+}
+
+/* Copy button - new icon states */
 .action-btn.copy-btn {
-    border-color: rgba(226, 168, 75, 0.4);
-    color: var(--accent);
+    border-color: rgba(110, 181, 168, 0.4);
+    color: var(--accent-cool);
+    position: relative;
+    overflow: hidden;
+}
+
+.copy-icon-default,
+.copy-icon-success {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.copy-icon-default::before {
+    content: '📋'; /* Clipboard icon */
+}
+
+.copy-icon-success::before {
+    content: '✓'; /* Checkmark icon */
+}
+
+.copy-icon-success {
+    transform: translate(-50%, 150%); /* Start below */
+    opacity: 0;
 }
 
 .action-btn.copy-btn:hover {
-    background: var(--accent-soft);
-    border-color: var(--accent);
-    color: var(--accent);
+    background: var(--accent-cool-soft);
+    border-color: var(--accent-cool);
 }
+
+.action-btn.copy-btn.copied .copy-icon-default {
+    transform: translate(-50%, -150%); /* Move up */
+    opacity: 0;
+}
+
+.action-btn.copy-btn.copied .copy-icon-success {
+    transform: translate(-50%, -50%); /* Move to center */
+    opacity: 1;
+}
+
 
 /* Spinning animation for refresh */
 @keyframes spin {
@@ -538,16 +579,22 @@ header {
     }
 }
 
-.action-btn.generate-row-btn.spinning .btn-icon {
-    animation: spin 0.5s ease-out;
-}
-
 /* Remove button */
 .action-btn.remove-row-btn {
     width: 40px;
     height: 40px;
     border-color: var(--border-subtle);
     color: var(--text-muted);
+    position: relative;
+}
+
+.action-btn.remove-row-btn::before {
+    content: '×';
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.75rem;
+    font-weight: 400;
+    line-height: 1;
+    transition: color var(--transition-base);
 }
 
 .action-btn.remove-row-btn:hover {
@@ -1213,30 +1260,11 @@ header {
 }
 
 /* ==========================================================================
-   Success Message
+   Copy Feedback
    ========================================================================== */
 
-.success-message {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.9);
-    background: var(--accent-cool);
-    color: var(--bg-deep);
-    padding: 1rem 2rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    font-weight: 600;
-    z-index: 3000;
-    opacity: 0;
-    pointer-events: none;
-    transition: all var(--transition-slow);
-    box-shadow: var(--shadow-lg);
-}
-
-.success-message.show {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+.copy-feedback {
+    display: none; /* Hidden by default, handled by JS */
 }
 
 /* ==========================================================================

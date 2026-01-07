@@ -172,6 +172,8 @@ body {
 .password-actions {
     display: flex;
     gap: 0.5rem;
+    align-items: stretch;
+    flex-shrink: 0;
 }
 
 .copy-btn,
@@ -468,6 +470,13 @@ body {
 }
 
 /* Strength meter */
+.strength-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0 2rem;
+}
+
 .strength-meter {
     background: #0b1014;
     border: 1px solid rgba(110, 243, 195, 0.35);
@@ -506,19 +515,22 @@ body {
 
 /* Generate button */
 .generate-btn {
-    padding: 1.5rem 3rem;
+    padding: 1rem 1.5rem;
     background: linear-gradient(135deg, #6ef3c3, #56e8ff);
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     color: #06100c;
     font-family: inherit;
     font-weight: 700;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
-    position: relative;
-    overflow: hidden;
     transition: all 0.3s ease;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    white-space: nowrap;
 }
 
 .generate-btn:hover {
@@ -527,45 +539,6 @@ body {
 
 .generate-btn:active {
     transform: translateY(1px);
-}
-
-/* Features section */
-.features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-}
-
-.feature {
-    text-align: center;
-    padding: 2rem;
-    background: #0f1418;
-    border: 1px solid rgba(110, 243, 195, 0.2);
-    border-radius: 15px;
-    transition: all 0.3s ease;
-}
-
-.feature:hover {
-    border-color: rgba(110, 243, 195, 0.6);
-    box-shadow: 0 10px 20px rgba(7, 14, 12, 0.35);
-    transform: translateY(-3px);
-}
-
-.feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.feature h3 {
-    color: #b7ffe1;
-    font-family: inherit;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-.feature p {
-    color: #9bd7c0;
 }
 
 /* Success message */
@@ -605,20 +578,16 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .generate-btn {
-        width: 100%;
-        padding: 1rem 2rem;
-    }
-
     .password-actions {
         width: 100%;
-        justify-content: stretch;
     }
 
+    .password-actions .generate-btn,
     .password-actions .copy-btn,
     .password-actions .tips-btn {
         flex: 1;
         justify-content: center;
+        width: 100%;
     }
 }
 

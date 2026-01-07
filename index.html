@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4gotagain.com — Fast passwords that stick</title>
+    <title>4gotagain.com — Make passwords you won't forget</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -14,7 +14,7 @@
             <h1 class="title">
                 <span class="title-text accent">4gotagain.com</span>
             </h1>
-            <p class="subtitle">Memory-first passwords, generated instantly.</p>
+            <p class="subtitle">Make passwords you won't forget.</p>
         </header>
 
         <main>
@@ -31,6 +31,9 @@
                                 <input type="text" class="password-output" readonly
                                     placeholder="Your password appears here...">
                                 <div class="password-actions">
+                                    <button id="generateBtn" class="generate-btn" title="Generate passwords">
+                                        <span class="btn-text">Generate</span>
+                                    </button>
                                     <button class="copy-btn" title="Copy to clipboard">
                                         <span class="copy-icon">📋</span>
                                         <span class="copy-text">Copy</span>
@@ -38,6 +41,31 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <div class="strength-section">
+                    <div class="strength-meter">
+                        <div class="strength-label">Password Strength:</div>
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <div class="strength-text" id="strengthText">Medium</div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button id="tipsBtn" class="info-modal-btn tips-btn-style" title="Memory Tips">
+                            <span class="btn-icon">💡</span>
+                            <span class="btn-label">Memory Tips</span>
+                        </button>
+                        <button id="typesBtn" class="info-modal-btn types-btn-style" title="Password Types">
+                            <span class="btn-icon">🔤</span>
+                            <span class="btn-label">Types</span>
+                        </button>
+                        <button id="securityBtn" class="info-modal-btn security-btn-style" title="Security">
+                            <span class="btn-icon">🛡️</span>
+                            <span class="btn-label">Security</span>
+                        </button>
                     </div>
                 </div>
 
@@ -98,14 +126,6 @@
                         </div>
                     </div>
 
-                    <div class="strength-meter">
-                        <div class="strength-label">Password Strength:</div>
-                        <div class="strength-bar">
-                            <div class="strength-fill" id="strengthFill"></div>
-                        </div>
-                        <div class="strength-text" id="strengthText">Medium</div>
-                    </div>
-
                     <div class="memorable-info" id="memorableInfo" style="display: none;">
                         <div class="memorable-icon">🧠</div>
                         <div class="memorable-text">
@@ -129,42 +149,6 @@
                             <p>Using only object words for easy visualization!</p>
                         </div>
                     </div>
-
-                    <div class="action-buttons">
-                        <button id="generateBtn" class="generate-btn">
-                            <span class="btn-text">Generate</span>
-                        </button>
-                        <button id="tipsBtn" class="info-modal-btn tips-btn-style" title="Memory Tips">
-                            <span class="btn-icon">💡</span>
-                            <span class="btn-label">Memory Tips</span>
-                        </button>
-                        <button id="typesBtn" class="info-modal-btn types-btn-style" title="Password Types">
-                            <span class="btn-icon">🔤</span>
-                            <span class="btn-label">Types</span>
-                        </button>
-                        <button id="securityBtn" class="info-modal-btn security-btn-style" title="Security">
-                            <span class="btn-icon">🛡️</span>
-                            <span class="btn-label">Security</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="features">
-                <div class="feature">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Memory-First</h3>
-                    <p>Pick human-memorable, rhyming, or object-based patterns that stick.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Snappy by Design</h3>
-                    <p>Lightweight layout, no external fonts, and instant generation.</p>
-                </div>
-                <div class="feature">
-                    <div class="feature-icon">🧩</div>
-                    <h3>Memorization Tips</h3>
-                    <p>Built-in techniques like chunking and memory palaces, one click away.</p>
                 </div>
             </div>
         </main>

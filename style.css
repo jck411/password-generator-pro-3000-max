@@ -485,6 +485,92 @@ body {
         0 0 2px rgba(0, 255, 136, 0.5);
 }
 
+/* Custom word section */
+.custom-word-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 12px;
+    margin-top: 0.5rem;
+}
+
+.custom-word-section label {
+    color: #00ffff;
+    font-weight: 600;
+    white-space: nowrap;
+    text-shadow:
+        0 0 8px rgba(0, 0, 0, 0.9),
+        0 0 4px rgba(0, 255, 255, 0.8);
+}
+
+.custom-word-section input[type="text"] {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(0, 255, 255, 0.4);
+    border-radius: 8px;
+    color: #00ffff;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.custom-word-section input[type="text"]::placeholder {
+    color: rgba(0, 255, 255, 0.4);
+    font-weight: 400;
+}
+
+.custom-word-section input[type="text"]:focus {
+    border-color: #00ffff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.custom-word-section input[type="text"]:not(:placeholder-shown) {
+    border-color: #00ff88;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+}
+
+/* Word position toggle */
+.word-position-toggle {
+    display: flex;
+    gap: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+}
+
+.position-btn {
+    padding: 0.5rem 0.75rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: rgba(0, 255, 255, 0.6);
+    font-family: 'Source Code Pro', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.position-btn:first-child {
+    border-right: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.position-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+}
+
+.position-btn.active {
+    background: rgba(0, 255, 255, 0.25);
+    color: #00ffff;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+}
+
 /* Strength meter */
 .strength-meter {
     background: rgba(0, 0, 0, 0.8);
@@ -828,6 +914,296 @@ body {
     font-style: normal;
 }
 
+
+/* Action buttons container */
+.action-buttons {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Info modal buttons (Tips, Types, Security) */
+.info-modal-btn {
+    padding: 1rem 1.25rem;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.info-modal-btn:hover {
+    transform: translateY(-2px);
+}
+
+.info-modal-btn:active {
+    transform: translateY(1px);
+}
+
+.info-modal-btn .btn-icon {
+    font-size: 1.1rem;
+}
+
+/* Tips button - purple/magenta */
+.tips-btn-style {
+    background: linear-gradient(45deg, #ff00ff, #cc00cc);
+    color: #fff;
+}
+
+.tips-btn-style:hover {
+    box-shadow: 0 8px 25px rgba(255, 0, 255, 0.4);
+}
+
+/* Types button - cyan/teal */
+.types-btn-style {
+    background: linear-gradient(45deg, #00ffff, #00cccc);
+    color: #000;
+}
+
+.types-btn-style:hover {
+    box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
+}
+
+/* Security button - orange/gold */
+.security-btn-style {
+    background: linear-gradient(45deg, #ffb400, #ff8800);
+    color: #000;
+}
+
+.security-btn-style:hover {
+    box-shadow: 0 8px 25px rgba(255, 180, 0, 0.4);
+}
+
+/* Info Modal Overlay */
+.info-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.info-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Info Modal */
+.info-modal {
+    background: rgba(10, 10, 10, 0.98);
+    border: 2px solid #ff00ff;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.3s ease;
+    box-shadow:
+        0 0 40px rgba(255, 0, 255, 0.3),
+        0 0 80px rgba(255, 0, 255, 0.2),
+        inset 0 0 40px rgba(255, 0, 255, 0.05);
+}
+
+.info-modal-overlay.active .info-modal {
+    transform: scale(1) translateY(0);
+}
+
+/* Modal themes */
+.tips-modal-theme {
+    border-color: #ff00ff;
+    box-shadow:
+        0 0 40px rgba(255, 0, 255, 0.3),
+        0 0 80px rgba(255, 0, 255, 0.2),
+        inset 0 0 40px rgba(255, 0, 255, 0.05);
+}
+
+.tips-modal-theme .info-modal-header {
+    background: linear-gradient(90deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.1));
+    border-bottom-color: rgba(255, 0, 255, 0.3);
+}
+
+.tips-modal-theme .info-modal-header h2 {
+    color: #ff00ff;
+}
+
+.types-modal-theme {
+    border-color: #00ffff;
+    box-shadow:
+        0 0 40px rgba(0, 255, 255, 0.3),
+        0 0 80px rgba(0, 255, 255, 0.2),
+        inset 0 0 40px rgba(0, 255, 255, 0.05);
+}
+
+.types-modal-theme .info-modal-header {
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 65, 0.1));
+    border-bottom-color: rgba(0, 255, 255, 0.3);
+}
+
+.types-modal-theme .info-modal-header h2 {
+    color: #00ffff;
+}
+
+.security-modal-theme {
+    border-color: #ffb400;
+    box-shadow:
+        0 0 40px rgba(255, 180, 0, 0.3),
+        0 0 80px rgba(255, 180, 0, 0.2),
+        inset 0 0 40px rgba(255, 180, 0, 0.05);
+}
+
+.security-modal-theme .info-modal-header {
+    background: linear-gradient(90deg, rgba(255, 180, 0, 0.2), rgba(255, 136, 0, 0.1));
+    border-bottom-color: rgba(255, 180, 0, 0.3);
+}
+
+.security-modal-theme .info-modal-header h2 {
+    color: #ffb400;
+}
+
+.info-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    background: linear-gradient(90deg, rgba(255, 0, 255, 0.2), rgba(0, 255, 255, 0.1));
+    border-bottom: 1px solid rgba(255, 0, 255, 0.3);
+}
+
+.info-modal-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #ff00ff;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 0 0 15px currentColor;
+    margin: 0;
+}
+
+.modal-icon {
+    font-size: 1.4rem;
+    filter: drop-shadow(0 0 8px rgba(255, 200, 0, 0.6));
+}
+
+.info-modal-close {
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.info-modal-close:hover {
+    opacity: 1;
+    transform: scale(1.2);
+    text-shadow: 0 0 15px currentColor;
+}
+
+.info-modal-content {
+    padding: 1.25rem;
+    max-height: calc(85vh - 80px);
+    overflow-y: auto;
+}
+
+/* Custom scrollbar for modal */
+.info-modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.info-modal-content::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+}
+
+.info-modal-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ff00ff, #00ffff);
+    border-radius: 4px;
+}
+
+.info-modal-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff66ff, #66ffff);
+}
+
+/* Tips sections in modal */
+.tips-section {
+    margin-bottom: 1.5rem;
+}
+
+.tips-section:last-child {
+    margin-bottom: 0;
+}
+
+.tips-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #00ffff;
+    font-family: 'Orbitron', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+}
+
+.tips-section-icon {
+    font-size: 1.25rem;
+}
+
+.tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+/* Responsive modal */
+@media (max-width: 768px) {
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .tips-modal-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .tips-modal {
+        width: 95%;
+        max-height: 90vh;
+    }
+
+    .tips-modal-content {
+        max-height: calc(90vh - 80px);
+    }
+
+    .tips-grid {
+        grid-template-columns: 1fr;
+    }
+}
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {

@@ -44,13 +44,8 @@
                                         <span class="copy-icon">📋</span>
                                         <span class="copy-text">Copy</span>
                                     </button>
-                                    <button class="tips-btn" title="Memory tips">
-                                        <span class="tips-icon">💡</span>
-                                        <span class="tips-text">Tips</span>
-                                    </button>
                                 </div>
                             </div>
-                            <div class="password-tips-container" style="display: none;"></div>
                         </div>
                     </div>
                 </div>
@@ -101,6 +96,17 @@
                         </div>
                     </div>
 
+                    <div class="custom-word-section">
+                        <label for="customWord">Include Custom Word:</label>
+                        <input type="text" id="customWord" placeholder="Your word here..." maxlength="32">
+                        <div class="word-position-toggle">
+                            <button type="button" id="wordPositionStart" class="position-btn active"
+                                title="Place word at start">Start</button>
+                            <button type="button" id="wordPositionEnd" class="position-btn"
+                                title="Place word at end">End</button>
+                        </div>
+                    </div>
+
                     <div class="strength-meter">
                         <div class="strength-label">Password Strength:</div>
                         <div class="strength-bar">
@@ -133,10 +139,24 @@
                         </div>
                     </div>
 
-                    <button id="generateBtn" class="generate-btn">
-                        <span class="btn-text">Generate Password</span>
-                        <div class="btn-glow"></div>
-                    </button>
+                    <div class="action-buttons">
+                        <button id="generateBtn" class="generate-btn">
+                            <span class="btn-text">Generate Password</span>
+                            <div class="btn-glow"></div>
+                        </button>
+                        <button id="tipsBtn" class="info-modal-btn tips-btn-style" title="Memory Tips">
+                            <span class="btn-icon">💡</span>
+                            <span class="btn-label">Tips</span>
+                        </button>
+                        <button id="typesBtn" class="info-modal-btn types-btn-style" title="Password Types">
+                            <span class="btn-icon">�</span>
+                            <span class="btn-label">Types</span>
+                        </button>
+                        <button id="securityBtn" class="info-modal-btn security-btn-style" title="Security">
+                            <span class="btn-icon">🛡️</span>
+                            <span class="btn-label">Security</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -161,6 +181,39 @@
 
         <div class="success-message" id="successMessage">
             <span>Password copied to clipboard!</span>
+        </div>
+
+        <!-- Memory Tips Modal -->
+        <div class="info-modal-overlay" id="tipsModalOverlay">
+            <div class="info-modal tips-modal-theme">
+                <div class="info-modal-header">
+                    <h2><span class="modal-icon">💡</span> Memory Tips</h2>
+                    <button class="info-modal-close" id="tipsModalClose">&times;</button>
+                </div>
+                <div class="info-modal-content" id="tipsModalContent"></div>
+            </div>
+        </div>
+
+        <!-- Password Types Modal -->
+        <div class="info-modal-overlay" id="typesModalOverlay">
+            <div class="info-modal types-modal-theme">
+                <div class="info-modal-header">
+                    <h2><span class="modal-icon">🔑</span> Password Types</h2>
+                    <button class="info-modal-close" id="typesModalClose">&times;</button>
+                </div>
+                <div class="info-modal-content" id="typesModalContent"></div>
+            </div>
+        </div>
+
+        <!-- Security Modal -->
+        <div class="info-modal-overlay" id="securityModalOverlay">
+            <div class="info-modal security-modal-theme">
+                <div class="info-modal-header">
+                    <h2><span class="modal-icon">🛡️</span> Security Best Practices</h2>
+                    <button class="info-modal-close" id="securityModalClose">&times;</button>
+                </div>
+                <div class="info-modal-content" id="securityModalContent"></div>
+            </div>
         </div>
     </div>
 

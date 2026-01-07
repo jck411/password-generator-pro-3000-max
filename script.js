@@ -168,59 +168,124 @@ class PasswordGenerator {
             objectsOnly: document.getElementById('objectsOnly')
         };
 
-        // Memory techniques for tips
+        // Custom word input
+        this.customWordInput = document.getElementById('customWord');
+        this.wordPositionStart = document.getElementById('wordPositionStart');
+        this.wordPositionEnd = document.getElementById('wordPositionEnd');
+        this.customWordPosition = 'start'; // 'start' or 'end'
+
+        // Memory techniques for tips (research-backed)
         this.memoryTechniques = [
             {
-                icon: '📖',
-                title: 'Story Method',
-                description: 'Create a quick story connecting your password words in sequence.',
-                getExample: (words) => `Imagine: "The <strong>${words[0] || 'brave'}</strong> ${words[1] || 'tiger'} decided to <strong>${words[2] || 'explore'}</strong>..."`
+                icon: '🔄',
+                title: 'Spaced Repetition',
+                description: 'This is the most consistently supported approach in memory research: reviewing the same material across spaced intervals beats "cramming," especially for long-term retention. Your "1 hour, 1 day, 1 week" schedule is a reasonable starting pattern. (Source: York University)'
             },
             {
-                icon: '🎨',
-                title: 'Visualization',
-                description: 'Picture each word as a vivid, colorful image in your mind.',
-                getExample: (words) => `See a <strong>${words[0] || 'bright'}</strong> ${words[1] || 'crystal'} glowing in your imagination.`
+                icon: '🏠',
+                title: 'Memory Palace (Method of Loci)',
+                description: 'Pick a place you know well (living room, commute). 1) Choose a fixed route with clear stops (door → couch → TV → fridge). 2) Place each item onto a specific location in order. 3) Recall by visualizing the same route and reading off each peg. In classic comparisons of mnemonic techniques, method of loci performs very well, especially for ordered recall. (Source: Psychnet)'
             },
             {
                 icon: '🧩',
                 title: 'Chunking',
-                description: 'Break the password into 2-3 memorable groups and learn each separately.',
-                getExample: (words) => `Group 1: "${words.slice(0, 2).join('-') || 'swift-eagle'}" | Group 2: "${words.slice(2).join('-') || 'fly-forest'}"`
+                description: 'Slice your monster passphrase into snack-size chunks—like "correct-horse," "battery-staple," "2026-llamas." Tiny bites are easier to chew. Grouping items into meaningful "chunks" is a foundational, well-supported principle for handling longer sequences. (Source: UT Psychology Labs)'
             },
             {
-                icon: '🎵',
-                title: 'Rhythm & Rhyme',
-                description: 'Create a catchy rhythm or song using your password words.',
-                getExample: (words) => `Try singing: "🎶 ${words.join(' ~ ') || 'bright ~ tiger ~ run ~ mountain'} 🎶"`
-            },
-            {
-                icon: '🏠',
-                title: 'Memory Palace',
-                description: 'Place each word in a room of your home as you mentally walk through it.',
-                getExample: (words) => `Front door: <strong>${words[0] || 'lion'}</strong>, Kitchen: <strong>${words[1] || 'crystal'}</strong>, etc.`
-            },
-            {
-                icon: '🔗',
-                title: 'Chain Link',
-                description: 'Link each word to the next using an action or relationship.',
-                getExample: (words) => `"${words[0] || 'Swift'}" catches "${words[1] || 'fish'}" near the "${words[2] || 'river'}"`
-            },
-            {
-                icon: '😊',
-                title: 'Emotional Connection',
-                description: 'Associate each word with a personal memory or emotion.',
-                getExample: (words) => `"<strong>${words[0] || 'Golden'}</strong>" reminds me of sunset at the beach...`
-            },
-            {
-                icon: '✋',
-                title: 'Finger Association',
-                description: 'Associate each word with a finger on your hand.',
-                getExample: (words) => `Thumb: ${words[0] || 'brave'}, Index: ${words[1] || 'lion'}, Middle: ${words[2] || 'guard'}...`
+                icon: '🧊',
+                title: 'Dopamine Boost',
+                description: 'Separate learning from your reward hit: memorize first, then wait 4+ hours before exercising or having coffee. Research shows aerobic exercise ~4 hours after learning improves memory vs. immediate exercise (van Dongen et al., 2016). Caffeine taken after studying also enhanced 24-hour recall (Borota et al., 2014). Disclaimer: Caffeine is a study buddy. Meth is a life-choices boss fight. Choose accordingly.'
             }
         ];
 
+        // Security tips
+        this.securityTips = [
+            {
+                icon: '🔒',
+                title: 'Use a Password Manager',
+                description: 'Store passwords in a secure manager like Bitwarden, 1Password, or KeePass.'
+            },
+            {
+                icon: '🚫',
+                title: 'Never Reuse Passwords',
+                description: 'Each account should have a unique password to prevent chain breaches.'
+            },
+            {
+                icon: '📱',
+                title: 'Enable 2FA',
+                description: 'Two-factor authentication adds an extra layer of security beyond your password.'
+            },
+            {
+                icon: '📪',
+                title: 'Beware of Phishing',
+                description: 'Never enter passwords on links from emails – go directly to the website.'
+            },
+            {
+                icon: '🔄',
+                title: 'Update Regularly',
+                description: 'Change important passwords every 6-12 months, especially for sensitive accounts.'
+            },
+            {
+                icon: '🔍',
+                title: 'Check for Breaches',
+                description: 'Use haveibeenpwned.com to check if your accounts have been compromised.'
+            }
+        ];
+
+        // Password type tips
+        this.passwordTypeTips = [
+            {
+                icon: '🧠',
+                title: 'Human Memorable',
+                description: 'Uses actual words in a pattern (adjective-noun-verb) for easier recall while staying secure.'
+            },
+            {
+                icon: '🎵',
+                title: 'Rhyming Passwords',
+                description: 'Words that rhyme are naturally easier to remember – like a catchy jingle!'
+            },
+            {
+                icon: '🎁',
+                title: 'Objects Only',
+                description: 'Physical objects are easy to visualize – imagine them in a scene together.'
+            },
+            {
+                icon: '🎟️',
+                title: 'Random Characters',
+                description: 'Maximum entropy for critical accounts. Best used with a password manager.'
+            },
+            {
+                icon: '⚡',
+                title: 'Avoid Ambiguous',
+                description: 'Removes confusing characters (0/O, 1/l/I) for easier typing and reading.'
+            },
+            {
+                icon: '➖',
+                title: 'Use Separators',
+                description: 'Dashes and underscores make passwords easier to read and type correctly.'
+            }
+        ];
+
+        // Modal elements - Tips
+        this.tipsModalOverlay = document.getElementById('tipsModalOverlay');
+        this.tipsModalContent = document.getElementById('tipsModalContent');
+        this.tipsBtn = document.getElementById('tipsBtn');
+        this.tipsModalClose = document.getElementById('tipsModalClose');
+
+        // Modal elements - Types
+        this.typesModalOverlay = document.getElementById('typesModalOverlay');
+        this.typesModalContent = document.getElementById('typesModalContent');
+        this.typesBtn = document.getElementById('typesBtn');
+        this.typesModalClose = document.getElementById('typesModalClose');
+
+        // Modal elements - Security
+        this.securityModalOverlay = document.getElementById('securityModalOverlay');
+        this.securityModalContent = document.getElementById('securityModalContent');
+        this.securityBtn = document.getElementById('securityBtn');
+        this.securityModalClose = document.getElementById('securityModalClose');
+
         this.updateRemoveButtonState();
+        this.populateAllModals();
     }
 
     checkModeAndUpdateSlider() {
@@ -290,6 +355,26 @@ class PasswordGenerator {
             });
         });
 
+        // Custom word input
+        this.customWordInput.addEventListener('input', () => {
+            this.generateAllPasswords();
+        });
+
+        // Word position toggle
+        this.wordPositionStart.addEventListener('click', () => {
+            this.customWordPosition = 'start';
+            this.wordPositionStart.classList.add('active');
+            this.wordPositionEnd.classList.remove('active');
+            this.generateAllPasswords();
+        });
+
+        this.wordPositionEnd.addEventListener('click', () => {
+            this.customWordPosition = 'end';
+            this.wordPositionEnd.classList.add('active');
+            this.wordPositionStart.classList.remove('active');
+            this.generateAllPasswords();
+        });
+
         // Generate button
         this.generateBtn.addEventListener('click', () => {
             this.generateAllPasswords();
@@ -308,10 +393,41 @@ class PasswordGenerator {
                 const input = passwordSlot.querySelector('.password-output');
                 this.copyToClipboard(input, copyBtn);
             }
+        });
 
-            const tipsBtn = e.target.closest('.tips-btn');
-            if (tipsBtn) {
-                this.togglePasswordTips(tipsBtn);
+        // Tips modal
+        this.tipsBtn.addEventListener('click', () => this.openModal('tips'));
+        this.tipsModalClose.addEventListener('click', () => this.closeModal('tips'));
+        this.tipsModalOverlay.addEventListener('click', (e) => {
+            if (e.target === this.tipsModalOverlay) {
+                this.closeModal('tips');
+            }
+        });
+
+        // Types modal
+        this.typesBtn.addEventListener('click', () => this.openModal('types'));
+        this.typesModalClose.addEventListener('click', () => this.closeModal('types'));
+        this.typesModalOverlay.addEventListener('click', (e) => {
+            if (e.target === this.typesModalOverlay) {
+                this.closeModal('types');
+            }
+        });
+
+        // Security modal
+        this.securityBtn.addEventListener('click', () => this.openModal('security'));
+        this.securityModalClose.addEventListener('click', () => this.closeModal('security'));
+        this.securityModalOverlay.addEventListener('click', (e) => {
+            if (e.target === this.securityModalOverlay) {
+                this.closeModal('security');
+            }
+        });
+
+        // Close any modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModal('tips');
+                this.closeModal('types');
+                this.closeModal('security');
             }
         });
     }
@@ -333,13 +449,8 @@ class PasswordGenerator {
                         <span class="copy-icon">📋</span>
                         <span class="copy-text">Copy</span>
                     </button>
-                    <button class="tips-btn" title="Memory tips">
-                        <span class="tips-icon">💡</span>
-                        <span class="tips-text">Tips</span>
-                    </button>
                 </div>
             </div>
-            <div class="password-tips-container" style="display: none;"></div>
         `;
 
         this.passwordList.appendChild(newSlot);
@@ -370,18 +481,6 @@ class PasswordGenerator {
         slots.forEach((slot, index) => {
             const password = this.generatePasswordForSlot(slot);
             if (index === 0) firstPasswordLength = password.length;
-
-            // Hide tips when regenerating
-            const tipsContainer = slot.querySelector('.password-tips-container');
-            if (tipsContainer) {
-                tipsContainer.style.display = 'none';
-                tipsContainer.innerHTML = '';
-            }
-            // Reset tips button state
-            const tipsBtn = slot.querySelector('.tips-btn');
-            if (tipsBtn) {
-                tipsBtn.classList.remove('active');
-            }
         });
 
         this.updateLengthLabel(this.lengthSlider.value, firstPasswordLength);
@@ -426,6 +525,10 @@ class PasswordGenerator {
 
     generateSinglePassword() {
         let password = '';
+        const customWord = this.customWordInput.value.trim();
+        const isWordMode = this.options.humanMemorable.checked ||
+            this.options.rhymingPassword.checked ||
+            this.options.objectsOnly.checked;
 
         if (this.options.rhymingPassword.checked && this.options.objectsOnly.checked) {
             // Generate rhyming objects password (combined mode)
@@ -453,6 +556,33 @@ class PasswordGenerator {
 
             for (let i = 0; i < length; i++) {
                 password += charset.charAt(array[i] % charset.length);
+            }
+        }
+
+        // Append custom word if provided
+        if (customWord) {
+            let formattedWord = customWord;
+
+            // Apply uppercase styling if enabled
+            if (this.options.uppercase.checked && Math.random() > 0.5) {
+                formattedWord = formattedWord.charAt(0).toUpperCase() + formattedWord.slice(1);
+            }
+
+            if (isWordMode) {
+                // For word-based passwords, use a separator
+                const separator = this.options.separators.checked ? this.getRandomSeparator() : '';
+                if (this.customWordPosition === 'start') {
+                    password = formattedWord + separator + password;
+                } else {
+                    password = password + separator + formattedWord;
+                }
+            } else {
+                // For random passwords, insert at start or end based on preference
+                if (this.customWordPosition === 'start') {
+                    password = formattedWord + password;
+                } else {
+                    password = password + formattedWord;
+                }
             }
         }
 
@@ -848,195 +978,72 @@ class PasswordGenerator {
         }
     }
 
-    // Toggle tips visibility for a specific password
-    togglePasswordTips(tipsBtn) {
-        const passwordSlot = tipsBtn.closest('.password-slot');
-        const tipsContainer = passwordSlot.querySelector('.password-tips-container');
-        const input = passwordSlot.querySelector('.password-output');
-        const password = input.value;
-
-        if (tipsContainer.style.display === 'none' || tipsContainer.style.display === '') {
-            // Generate and show tips
-            this.generateTipsForPassword(password, tipsContainer);
-            tipsContainer.style.display = 'block';
-            tipsBtn.classList.add('active');
-        } else {
-            // Hide tips
-            tipsContainer.style.display = 'none';
-            tipsBtn.classList.remove('active');
+    // Open a modal by type
+    openModal(type) {
+        const overlays = {
+            tips: this.tipsModalOverlay,
+            types: this.typesModalOverlay,
+            security: this.securityModalOverlay
+        };
+        if (overlays[type]) {
+            overlays[type].classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
     }
 
-    // Generate tips for a specific password
-    generateTipsForPassword(password, container) {
-        if (!password) {
-            container.innerHTML = '<div class="no-tips">Generate a password first!</div>';
-            return;
+    // Close a modal by type
+    closeModal(type) {
+        const overlays = {
+            tips: this.tipsModalOverlay,
+            types: this.typesModalOverlay,
+            security: this.securityModalOverlay
+        };
+        if (overlays[type]) {
+            overlays[type].classList.remove('active');
+            // Only restore scrolling if no modals are open
+            if (!this.tipsModalOverlay.classList.contains('active') &&
+                !this.typesModalOverlay.classList.contains('active') &&
+                !this.securityModalOverlay.classList.contains('active')) {
+                document.body.style.overflow = '';
+            }
         }
+    }
 
-        // Extract words from the password
-        const words = this.extractWordsFromPassword(password);
-
-        // Check if it's a memorable password (has words) or random characters
-        const isMemorable = words.length >= 2;
-
-        let tipsHTML = `
-            <div class="tips-header">
-                <span class="tips-header-icon">💡</span>
-                <strong>Memory Tips</strong>
+    // Helper to render a tip card
+    renderTipCard(tip) {
+        return `
+            <div class="memory-tip-card">
+                <div class="memory-tip-title">
+                    <span>${tip.icon}</span>
+                    ${tip.title}
+                </div>
+                <div class="memory-tip-description">${tip.description}</div>
             </div>
-            <div class="tips-content">
+        `;
+    }
+
+    // Populate all modals
+    populateAllModals() {
+        // Memory Tips Modal
+        this.tipsModalContent.innerHTML = `
+            <div class="tips-grid">
+                ${this.memoryTechniques.map(tip => this.renderTipCard(tip)).join('')}
+            </div>
         `;
 
-        if (this.options.rhymingPassword.checked && this.options.objectsOnly.checked && isMemorable) {
-            // Special tip for combined rhyming objects mode
-            tipsHTML += `
-                <div class="memory-tip-card" style="border-color: #ff6600; background: linear-gradient(135deg, rgba(255, 0, 255, 0.05), rgba(255, 180, 0, 0.05));">
-                    <div class="memory-tip-title" style="color: #ff6600;">
-                        <span>🎵🎁</span>
-                        Rhyming Objects
-                    </div>
-                    <div class="memory-tip-description">These objects rhyme! Picture them together while using the rhythm to make them stick.</div>
-                    <div class="memory-tip-example">"🎶 A ${words[0] || 'bell'} rings near a ${words[1] || 'shell'} in a ${words[2] || 'well'} 🎶"</div>
-                </div>
-            `;
+        // Password Types Modal
+        this.typesModalContent.innerHTML = `
+            <div class="tips-grid">
+                ${this.passwordTypeTips.map(tip => this.renderTipCard(tip)).join('')}
+            </div>
+        `;
 
-            // Add one random technique
-            const technique = this.memoryTechniques[Math.floor(Math.random() * this.memoryTechniques.length)];
-            tipsHTML += `
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>${technique.icon}</span>
-                        ${technique.title}
-                    </div>
-                    <div class="memory-tip-description">${technique.description}</div>
-                    <div class="memory-tip-example">${technique.getExample(words)}</div>
-                </div>
-            `;
-        } else if (this.options.rhymingPassword.checked && isMemorable) {
-            // Special tip for rhyming passwords
-            tipsHTML += `
-                <div class="memory-tip-card" style="border-color: #ff00ff; background: rgba(255, 0, 255, 0.05);">
-                    <div class="memory-tip-title" style="color: #ff00ff;">
-                        <span>🎵</span>
-                        Rhyme Power
-                    </div>
-                    <div class="memory-tip-description">These words rhyme! Use the rhythm to stick them in your memory like a catchy song.</div>
-                    <div class="memory-tip-example">"🎶 ${words.join(' ~ ')} 🎶"</div>
-                </div>
-            `;
-
-            // Add one random technique
-            const technique = this.memoryTechniques[Math.floor(Math.random() * this.memoryTechniques.length)];
-            tipsHTML += `
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>${technique.icon}</span>
-                        ${technique.title}
-                    </div>
-                    <div class="memory-tip-description">${technique.description}</div>
-                    <div class="memory-tip-example">${technique.getExample(words)}</div>
-                </div>
-            `;
-        } else if (this.options.objectsOnly.checked && isMemorable) {
-            // Special tip for objects-only passwords
-            tipsHTML += `
-                <div class="memory-tip-card" style="border-color: #ffb400; background: rgba(255, 180, 0, 0.05);">
-                    <div class="memory-tip-title" style="color: #ffb400;">
-                        <span>🎁</span>
-                        Object Visualization
-                    </div>
-                    <div class="memory-tip-description">These are all physical objects! Picture them together in a scene to make them memorable.</div>
-                    <div class="memory-tip-example">"Imagine a ${words[0] || 'crystal'} next to a ${words[1] || 'sword'} on a ${words[2] || 'shield'}..."</div>
-                </div>
-            `;
-
-            // Add one random technique
-            const technique = this.memoryTechniques[Math.floor(Math.random() * this.memoryTechniques.length)];
-            tipsHTML += `
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>${technique.icon}</span>
-                        ${technique.title}
-                    </div>
-                    <div class="memory-tip-description">${technique.description}</div>
-                    <div class="memory-tip-example">${technique.getExample(words)}</div>
-                </div>
-            `;
-        } else if (this.options.humanMemorable.checked && isMemorable) {
-            // Special tip for human memorable passwords
-            tipsHTML += `
-                <div class="memory-tip-card" style="border-color: #00ffff; background: rgba(0, 255, 255, 0.05);">
-                    <div class="memory-tip-title" style="color: #00ffff;">
-                        <span>🧠</span>
-                        Word Association
-                    </div>
-                    <div class="memory-tip-description">These words form a pattern! Connect them with a story or scene in your mind.</div>
-                    <div class="memory-tip-example">"The ${words[0] || 'brave'} ${words[1] || 'tiger'} decided to ${words[2] || 'explore'}..."</div>
-                </div>
-            `;
-
-            // Add one random technique
-            const technique = this.memoryTechniques[Math.floor(Math.random() * this.memoryTechniques.length)];
-            tipsHTML += `
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>${technique.icon}</span>
-                        ${technique.title}
-                    </div>
-                    <div class="memory-tip-description">${technique.description}</div>
-                    <div class="memory-tip-example">${technique.getExample(words)}</div>
-                </div>
-            `;
-        } else if (isMemorable) {
-            // Pick 2 random techniques for memorable passwords
-            const shuffled = [...this.memoryTechniques].sort(() => 0.5 - Math.random());
-            const selectedTechniques = shuffled.slice(0, 2);
-
-            tipsHTML += selectedTechniques.map(technique => `
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>${technique.icon}</span>
-                        ${technique.title}
-                    </div>
-                    <div class="memory-tip-description">${technique.description}</div>
-                    <div class="memory-tip-example">${technique.getExample(words)}</div>
-                </div>
-            `).join('');
-        } else {
-            // Tips for random character passwords
-            tipsHTML += `
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>📝</span>
-                        Password Manager
-                    </div>
-                    <div class="memory-tip-description">For random character passwords, use a password manager to store it securely.</div>
-                    <div class="memory-tip-example">Try <strong>Bitwarden</strong>, <strong>1Password</strong>, or <strong>KeePass</strong></div>
-                </div>
-                <div class="memory-tip-card">
-                    <div class="memory-tip-title">
-                        <span>🧠</span>
-                        Try Memorable Mode
-                    </div>
-                    <div class="memory-tip-description">Enable "Human Memorable" mode for easier-to-remember passwords using real words.</div>
-                    <div class="memory-tip-example">Memorable passwords are just as secure but much easier to recall!</div>
-                </div>
-            `;
-        }
-
-        tipsHTML += '</div>';
-        container.innerHTML = tipsHTML;
-    }
-
-    // Extract words from a memorable password
-    extractWordsFromPassword(password) {
-        // Split by common separators used in memorable passwords
-        const separatorRegex = /[-_.:/|~=!@#$%^&*+]/;
-        const parts = password.split(separatorRegex);
-
-        // Filter out empty strings and very short parts
-        return parts.filter(part => part.length > 2);
+        // Security Modal
+        this.securityModalContent.innerHTML = `
+            <div class="tips-grid">
+                ${this.securityTips.map(tip => this.renderTipCard(tip)).join('')}
+            </div>
+        `;
     }
 }
 

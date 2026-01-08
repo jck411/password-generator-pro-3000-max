@@ -69,6 +69,9 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent horizontal overflow and iOS elastic scrolling issues */
+    overflow-x: hidden;
+    overscroll-behavior: none;
 }
 
 body {
@@ -76,8 +79,16 @@ body {
     background: var(--bg-deep);
     color: var(--text-primary);
     min-height: 100vh;
+    min-height: 100dvh;
+    /* Use dynamic viewport height for iOS */
     line-height: 1.6;
     letter-spacing: -0.01em;
+    /* Prevent horizontal overflow and page dragging on iOS */
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    width: 100%;
 }
 
 /* Subtle gradient overlay for depth without being busy */
@@ -145,6 +156,9 @@ body::before {
     max-width: 720px;
     margin: 0 auto;
     padding: 3rem 1.5rem 4rem;
+    /* iOS overflow prevention */
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* ==========================================================================

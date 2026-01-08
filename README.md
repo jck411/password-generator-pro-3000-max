@@ -113,6 +113,29 @@ When enabled, the generator creates passwords using curated word lists:
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## 🚀 Deployment (Cloudflare Pages)
+
+This site is deployed on Cloudflare Pages with aggressive caching for performance.
+
+### Cache-Busting Workflow
+
+When you make code changes, **update the version strings** in `index.html`:
+
+```html
+<link rel="stylesheet" href="style.css?v=1.2.0">
+<script type="module" src="src/main.js?v=1.2.0"></script>
+```
+
+This ensures users get fresh files after deployment. The `_headers` file sets 1-year caching for static assets, which is optimal when combined with versioned URLs.
+
+### How It Works
+
+| Resource | Cache Strategy |
+|----------|---------------|
+| HTML | `max-age=0, must-revalidate` (always fresh) |
+| CSS/JS | `max-age=31536000, immutable` (1 year, cached until version changes) |
+| Images | `max-age=31536000, immutable` (1 year) |
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

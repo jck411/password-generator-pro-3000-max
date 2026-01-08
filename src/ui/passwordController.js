@@ -312,6 +312,7 @@ class PasswordController {
     }
 
     updateLengthLabel(value, actualLength = null) {
+        this.updateLengthSliderProgress();
         if (this.currentMode === 'words') {
             this.lengthLabelText.textContent = 'Word length';
             let displayText = `${value}`;
@@ -323,6 +324,17 @@ class PasswordController {
             this.lengthLabelText.textContent = 'Length';
             this.lengthValue.textContent = value;
         }
+    }
+
+    updateLengthSliderProgress() {
+        if (!this.lengthSlider) return;
+        const min = parseInt(this.lengthSlider.min, 10);
+        const max = parseInt(this.lengthSlider.max, 10);
+        const value = parseInt(this.lengthSlider.value, 10);
+        if (!Number.isFinite(min) || !Number.isFinite(max) || !Number.isFinite(value) || max <= min) return;
+
+        const percent = ((value - min) / (max - min)) * 100;
+        this.lengthSlider.style.setProperty('--slider-progress', `${percent}%`);
     }
 
     generateAllPasswords() {

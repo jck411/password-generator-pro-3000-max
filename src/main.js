@@ -46,13 +46,10 @@ const initKonamiCode = () => {
 
         if (konamiCode.join(',') === konamiSequence.join(',')) {
             const lengthSlider = document.getElementById('length');
-            const lengthValue = document.getElementById('lengthValue');
 
             if (lengthSlider) {
                 lengthSlider.value = '64';
-            }
-            if (lengthValue) {
-                lengthValue.textContent = '64';
+                lengthSlider.dispatchEvent(new Event('input', { bubbles: true }));
             }
 
             ['uppercase', 'lowercase', 'numbers', 'symbols', 'avoidAmbiguous'].forEach((id) => {

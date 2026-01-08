@@ -57,13 +57,14 @@ class PasswordController {
         this.wordPositionStart = document.getElementById('wordPositionStart');
         this.wordPositionEnd = document.getElementById('wordPositionEnd');
 
-        this.tipsDropdownBtn = document.getElementById('tipsDropdownBtn');
-        this.tipsDropdownContent = document.getElementById('tipsDropdownContent');
-        this.tipsContentInner = document.getElementById('tipsContentInner');
+        // Modal elements
+        this.tipsModalBtn = document.getElementById('tipsModalBtn');
+        this.tipsModalOverlay = document.getElementById('tipsModalOverlay');
+        this.tipsModalContent = document.getElementById('tipsModalContent');
 
-        this.securityDropdownBtn = document.getElementById('securityDropdownBtn');
-        this.securityDropdownContent = document.getElementById('securityDropdownContent');
-        this.securityContentInner = document.getElementById('securityContentInner');
+        this.securityModalBtn = document.getElementById('securityModalBtn');
+        this.securityModalOverlay = document.getElementById('securityModalOverlay');
+        this.securityModalContent = document.getElementById('securityModalContent');
 
         const regularConfig = MODE_CONFIGS.regular;
         if (this.lengthSlider) {
@@ -82,7 +83,8 @@ class PasswordController {
         this.updateWordCountControls();
         this.updateWordCountVisibility();
         this.updateAddButtonState();
-        this.populateDropdowns();
+        this.populateModals();
+        this.setupModalListeners();
     }
 
     setupEventListeners() {
@@ -183,8 +185,6 @@ class PasswordController {
             }
         });
 
-        this.tipsDropdownBtn.addEventListener('click', () => this.toggleDropdown('tips'));
-        this.securityDropdownBtn.addEventListener('click', () => this.toggleDropdown('security'));
     }
 
     addPasswordSlot() {
@@ -500,32 +500,56 @@ class PasswordController {
     }
 
 
-    toggleDropdown(type) {
-        const dropdowns = {
-            tips: {
-                btn: this.tipsDropdownBtn,
-                content: this.tipsDropdownContent
-            },
-            security: {
-                btn: this.securityDropdownBtn,
-                content: this.securityDropdownContent
-            }
-        };
+    setupModalListeners() {
+        // Open modal buttons
+        this.tipsModalBtn.addEventListener('click', () => this.openModal('tips'));
+        this.securityModalBtn.addEventListener('click', () => this.openModal('security'));
 
-        const dropdown = dropdowns[type];
-        if (!dropdown) return;
-
-        const isExpanded = dropdown.btn.getAttribute('aria-expanded') === 'true';
-
-        Object.keys(dropdowns).forEach((key) => {
-            if (key !== type) {
-                dropdowns[key].btn.setAttribute('aria-expanded', 'false');
-                dropdowns[key].content.hidden = true;
-            }
+        // Close buttons inside modals
+        const closeButtons = document.querySelectorAll('.info-modal-close');
+        closeButtons.forEach((btn) => {
+            btn.addEventListener('click', () => this.closeAllModals());
         });
 
-        dropdown.btn.setAttribute('aria-expanded', !isExpanded);
-        dropdown.content.hidden = isExpanded;
+        // Close on overlay click
+        [this.tipsModalOverlay, this.securityModalOverlay].forEach((overlay) => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    this.closeAllModals();
+                }
+            });
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeAllModals();
+            }
+        });
+    }
+
+    openModal(type) {
+        const modals = {
+            tips: this.tipsModalOverlay,
+            security: this.securityModalOverlay
+        };
+
+        const modal = modals[type];
+        if (!modal) return;
+
+        // Close any other open modals first
+        this.closeAllModals();
+
+        // Open the requested modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+
+    closeAllModals() {
+        [this.tipsModalOverlay, this.securityModalOverlay].forEach((overlay) => {
+            overlay.classList.remove('active');
+        });
+        document.body.style.overflow = ''; // Restore scroll
     }
 
     renderTipCard(tip) {
@@ -540,14 +564,14 @@ class PasswordController {
         `;
     }
 
-    populateDropdowns() {
-        this.tipsContentInner.innerHTML = `
+    populateModals() {
+        this.tipsModalContent.innerHTML = `
             <div class="tips-list">
                 ${memoryTechniques.map((tip) => this.renderTipCard(tip)).join('')}
             </div>
         `;
 
-        this.securityContentInner.innerHTML = `
+        this.securityModalContent.innerHTML = `
             <div class="tips-list">
                 ${securityTips.map((tip) => this.renderTipCard(tip)).join('')}
             </div>

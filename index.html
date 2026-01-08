@@ -62,7 +62,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=1.1.6">
+    <link rel="stylesheet" href="style.css?v=1.1.7">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -151,27 +151,17 @@
 
         <main>
             <article class="generator-card" aria-label="Password Generator">
-                <!-- Top Info Dropdowns -->
-                <section class="info-dropdowns" aria-label="Tips and Information">
-                    <div class="dropdown-buttons">
-                        <button id="tipsDropdownBtn" class="dropdown-toggle tips-toggle" aria-expanded="false"
-                            aria-controls="tipsDropdownContent">
-                            <span class="dropdown-icon" aria-hidden="true">💡</span>
-                            <span class="dropdown-label">Memory Tips</span>
-                            <span class="dropdown-arrow" aria-hidden="true">▼</span>
+                <!-- Info Modal Buttons -->
+                <section class="info-buttons" aria-label="Tips and Information">
+                    <div class="modal-trigger-buttons">
+                        <button id="tipsModalBtn" class="modal-trigger tips-trigger" aria-haspopup="dialog">
+                            <span class="trigger-icon" aria-hidden="true">💡</span>
+                            <span class="trigger-label">Memory Tips</span>
                         </button>
-                        <button id="securityDropdownBtn" class="dropdown-toggle security-toggle" aria-expanded="false"
-                            aria-controls="securityDropdownContent">
-                            <span class="dropdown-icon" aria-hidden="true">🛡️</span>
-                            <span class="dropdown-label">Security</span>
-                            <span class="dropdown-arrow" aria-hidden="true">▼</span>
+                        <button id="securityModalBtn" class="modal-trigger security-trigger" aria-haspopup="dialog">
+                            <span class="trigger-icon" aria-hidden="true">🛡️</span>
+                            <span class="trigger-label">Security</span>
                         </button>
-                    </div>
-                    <div id="tipsDropdownContent" class="dropdown-content tips-dropdown" hidden>
-                        <div class="dropdown-content-inner" id="tipsContentInner"></div>
-                    </div>
-                    <div id="securityDropdownContent" class="dropdown-content security-dropdown" hidden>
-                        <div class="dropdown-content-inner" id="securityContentInner"></div>
                     </div>
                 </section>
 
@@ -352,7 +342,41 @@
         </aside>
     </div>
 
-    <script type="module" src="src/main.js?v=1.1.6"></script>
+    <!-- Memory Tips Modal -->
+    <div id="tipsModalOverlay" class="info-modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="tipsModalTitle">
+        <div class="info-modal tips-modal-theme">
+            <div class="info-modal-header">
+                <h2 id="tipsModalTitle">
+                    <span class="modal-icon">💡</span>
+                    Memory Tips
+                </h2>
+                <button class="info-modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="info-modal-content" id="tipsModalContent">
+                <!-- Content populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Security Modal -->
+    <div id="securityModalOverlay" class="info-modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="securityModalTitle">
+        <div class="info-modal security-modal-theme">
+            <div class="info-modal-header">
+                <h2 id="securityModalTitle">
+                    <span class="modal-icon">🛡️</span>
+                    Security Best Practices
+                </h2>
+                <button class="info-modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="info-modal-content" id="securityModalContent">
+                <!-- Content populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js?v=1.1.7"></script>
 </body>
 
 </html>

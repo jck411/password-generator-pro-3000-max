@@ -201,19 +201,19 @@ header {
 }
 
 /* ==========================================================================
-   Info Dropdowns (Top Section)
+   Info Modal Trigger Buttons (Top Section)
    ========================================================================== */
 
-.info-dropdowns {
+.info-buttons {
     margin-bottom: 1.5rem;
 }
 
-.dropdown-buttons {
+.modal-trigger-buttons {
     display: flex;
     gap: 0.5rem;
 }
 
-.dropdown-toggle {
+.modal-trigger {
     flex: 1;
     padding: 0.875rem 1rem;
     background: var(--bg-elevated);
@@ -230,90 +230,36 @@ header {
     gap: 0.5rem;
 }
 
-.dropdown-toggle .dropdown-icon {
+.modal-trigger .trigger-icon {
     font-size: 1.1rem;
 }
 
-.dropdown-toggle .dropdown-arrow {
-    font-size: 0.6rem;
-    margin-left: auto;
-    transition: transform var(--transition-base);
+.modal-trigger .trigger-label {
+    font-weight: 600;
 }
 
-.dropdown-toggle[aria-expanded="true"] .dropdown-arrow {
-    transform: rotate(180deg);
-}
-
-.tips-toggle {
+.tips-trigger {
     color: var(--accent);
     border-color: rgba(226, 168, 75, 0.3);
 }
 
-.tips-toggle:hover,
-.tips-toggle[aria-expanded="true"] {
+.tips-trigger:hover {
     background: var(--accent-soft);
     border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(226, 168, 75, 0.2);
 }
 
-.security-toggle {
+.security-trigger {
     color: var(--accent-cool);
     border-color: rgba(110, 181, 168, 0.3);
 }
 
-.security-toggle:hover,
-.security-toggle[aria-expanded="true"] {
+.security-trigger:hover {
     background: var(--accent-cool-soft);
     border-color: var(--accent-cool);
-}
-
-.dropdown-content {
-    margin-top: 0.75rem;
-    background: var(--bg-elevated);
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    animation: slideDown 0.25s ease-out;
-}
-
-.dropdown-content[hidden] {
-    display: none;
-}
-
-.dropdown-content-inner {
-    padding: 1rem;
-    max-height: 300px;
-    overflow-y: auto;
-}
-
-.tips-dropdown {
-    border-color: rgba(226, 168, 75, 0.3);
-}
-
-.security-dropdown {
-    border-color: rgba(110, 181, 168, 0.3);
-}
-
-/* Dropdown tip cards - more compact than modal version */
-.dropdown-content .memory-tip-card {
-    background: var(--bg-base);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-}
-
-.dropdown-content .memory-tip-card:last-child {
-    margin-bottom: 0;
-}
-
-.dropdown-content .memory-tip-title {
-    font-size: 0.8125rem;
-    margin-bottom: 0.25rem;
-}
-
-.dropdown-content .memory-tip-description {
-    font-size: 0.75rem;
-    line-height: 1.4;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(110, 181, 168, 0.2);
 }
 
 /* ==========================================================================

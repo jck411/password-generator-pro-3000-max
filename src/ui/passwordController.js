@@ -24,7 +24,6 @@ class PasswordController {
 
     initializeElements() {
         this.passwordList = document.getElementById('passwordList');
-        this.passwordCountDisplay = document.getElementById('passwordCount');
         this.addPasswordBtn = document.getElementById('addPasswordBtn');
         this.lengthSlider = document.getElementById('length');
         this.lengthValue = document.getElementById('lengthValue');
@@ -141,7 +140,6 @@ class PasswordController {
         if (this.passwordCount >= this.maxPasswords) return;
 
         this.passwordCount++;
-        this.passwordCountDisplay.textContent = this.passwordCount;
 
         const newSlot = document.createElement('div');
         newSlot.className = 'password-slot';
@@ -195,7 +193,6 @@ class PasswordController {
         }
 
         this.passwordCount--;
-        this.passwordCountDisplay.textContent = this.passwordCount;
         this.updateAddButtonState();
         this.updateStrengthFromFirst();
     }

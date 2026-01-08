@@ -88,7 +88,6 @@ class PasswordController {
                 }
 
                 this.checkModeAndUpdateSlider();
-                this.toggleMemorableInfo();
                 this.generateAllPasswords();
             });
         });
@@ -450,33 +449,6 @@ class PasswordController {
         }, 200);
     }
 
-    toggleMemorableInfo() {
-        const memorableInfo = document.getElementById('memorableInfo');
-        const rhymingInfo = document.getElementById('rhymingInfo');
-        const objectsInfo = document.getElementById('objectsInfo');
-
-        if (this.options.humanMemorable.checked) {
-            memorableInfo.style.display = 'flex';
-            rhymingInfo.style.display = 'none';
-            objectsInfo.style.display = 'none';
-        } else if (this.options.rhymingPassword.checked && this.options.objectsOnly.checked) {
-            memorableInfo.style.display = 'none';
-            rhymingInfo.style.display = 'flex';
-            objectsInfo.style.display = 'flex';
-        } else if (this.options.rhymingPassword.checked) {
-            memorableInfo.style.display = 'none';
-            rhymingInfo.style.display = 'flex';
-            objectsInfo.style.display = 'none';
-        } else if (this.options.objectsOnly.checked) {
-            memorableInfo.style.display = 'none';
-            rhymingInfo.style.display = 'none';
-            objectsInfo.style.display = 'flex';
-        } else {
-            memorableInfo.style.display = 'none';
-            rhymingInfo.style.display = 'none';
-            objectsInfo.style.display = 'none';
-        }
-    }
 
     toggleDropdown(type) {
         const dropdowns = {

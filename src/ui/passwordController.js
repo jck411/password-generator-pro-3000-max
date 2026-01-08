@@ -12,20 +12,16 @@ import { calculateStrength, strengthMeta } from '../utils/strength.js';
 
 class PasswordController {
     constructor() {
-        this.passwordCount = 1;
-        this.maxPasswords = DEFAULT_LIMITS.maxPasswords;
         this.currentMode = 'regular';
         this.customWordPosition = 'start';
 
         this.initializeElements();
         this.setupEventListeners();
-        this.generateAllPasswords();
+        this.generatePassword();
     }
 
     initializeElements() {
         this.passwordList = document.getElementById('passwordList');
-        this.passwordCountDisplay = document.getElementById('passwordCount');
-        this.addPasswordBtn = document.getElementById('addPasswordBtn');
         this.lengthSlider = document.getElementById('length');
         this.lengthValue = document.getElementById('lengthValue');
         this.lengthLabelText = document.getElementById('lengthLabelText');
@@ -66,14 +62,13 @@ class PasswordController {
             }
         }
 
-        this.updateAddButtonState();
         this.populateDropdowns();
     }
 
     setupEventListeners() {
         this.lengthSlider.addEventListener('input', () => {
             this.updateLengthLabel(this.lengthSlider.value);
-            this.generateAllPasswords();
+            this.generatePassword();
         });
 
         Object.entries(this.options).forEach(([key, option]) => {
@@ -87,49 +82,42 @@ class PasswordController {
 
                 this.checkModeAndUpdateSlider();
                 this.toggleMemorableInfo();
-                this.generateAllPasswords();
+                this.generatePassword();
             });
         });
 
-        this.customWordInput.addEventListener('input', () => this.generateAllPasswords());
+        this.customWordInput.addEventListener('input', () => this.generatePassword());
 
         this.wordPositionStart.addEventListener('click', () => {
             this.customWordPosition = 'start';
             this.wordPositionStart.classList.add('active');
             this.wordPositionEnd.classList.remove('active');
-            this.generateAllPasswords();
+            this.generatePassword();
         });
 
         this.wordPositionEnd.addEventListener('click', () => {
             this.customWordPosition = 'end';
             this.wordPositionEnd.classList.add('active');
             this.wordPositionStart.classList.remove('active');
-            this.generateAllPasswords();
+            this.generatePassword();
         });
-
-        this.addPasswordBtn.addEventListener('click', () => this.addPasswordSlot());
 
         this.passwordList.addEventListener('click', (e) => {
             const generateBtn = e.target.closest('.generate-row-btn');
             const copyBtn = e.target.closest('.copy-btn');
-            const removeBtn = e.target.closest('.remove-row-btn');
 
             if (generateBtn) {
                 const passwordSlot = generateBtn.closest('.password-slot');
                 generateBtn.classList.add('spinning');
                 setTimeout(() => generateBtn.classList.remove('spinning'), 500);
                 this.generatePasswordForSlot(passwordSlot);
-                this.updateStrengthFromFirst();
+                this.updateStrength();
             }
 
             if (copyBtn) {
                 const passwordSlot = copyBtn.closest('.password-slot');
                 const input = passwordSlot.querySelector('.password-output');
                 this.copyToClipboard(input, copyBtn);
-            }
-
-            if (removeBtn) {
-                this.removePasswordSlot(removeBtn.closest('.password-slot'));
             }
         });
 
@@ -249,17 +237,11 @@ class PasswordController {
         }
     }
 
-    generateAllPasswords() {
-        const slots = this.passwordList.querySelectorAll('.password-slot');
-        let firstPasswordLength = 0;
-
-        slots.forEach((slot, index) => {
-            const password = this.generatePasswordForSlot(slot);
-            if (index === 0) firstPasswordLength = password.length;
-        });
-
-        this.updateLengthLabel(this.lengthSlider.value, firstPasswordLength);
-        this.updateStrengthFromFirst();
+    generatePassword() {
+        const slot = this.passwordList.querySelector('.password-slot');
+        const password = this.generatePasswordForSlot(slot);
+        this.updateLengthLabel(this.lengthSlider.value, password.length);
+        this.updateStrength();
     }
 
     generatePasswordForSlot(slot) {

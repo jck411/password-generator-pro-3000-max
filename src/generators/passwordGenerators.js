@@ -1,11 +1,45 @@
 import { WORD_LISTS, RHYME_FAMILIES, RHYMING_OBJECTS } from '../data/wordLists.js';
 import { choose, chooseMany, randomNumber, randomSeparator, randomSymbol } from '../utils/random.js';
 
+const AMBIGUOUS_CHARS = 'O0oIl1|`\'"{}[]()<>~,.;:';
+
+const randomIndex = (length) => {
+    const buffer = new Uint32Array(1);
+    crypto.getRandomValues(buffer);
+    return buffer[0] % length;
+};
+
+const shuffle = (items) => {
+    for (let i = items.length - 1; i > 0; i--) {
+        const j = randomIndex(i + 1);
+        [items[i], items[j]] = [items[j], items[i]];
+    }
+    return items;
+};
+
+const filterAmbiguous = (chars, avoidAmbiguous) => {
+    if (!avoidAmbiguous) return chars;
+    return chars
+        .split('')
+        .filter((char) => !AMBIGUOUS_CHARS.includes(char))
+        .join('');
+};
+
 const maybeCapitalize = (word, useUppercase) => {
     if (useUppercase && Math.random() > 0.5) {
         return word.charAt(0).toUpperCase() + word.slice(1);
     }
     return word;
+};
+
+const ensureAtLeastOneUppercase = (words, useUppercase) => {
+    if (!useUppercase) return words;
+    if (words.some((word) => /[A-Z]/.test(word))) return words;
+    if (!words.length) return words;
+
+    const idx = randomNumber(0, words.length - 1);
+    words[idx] = words[idx].charAt(0).toUpperCase() + words[idx].slice(1);
+    return words;
 };
 
 const flattenLists = (lists) => lists.reduce((accumulator, list) => accumulator.concat(list), []);
@@ -43,27 +77,58 @@ export const buildCharset = (options) => {
     if (options.numbers) charset += '0123456789';
     if (options.symbols) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
 
-    if (options.avoidAmbiguous) {
-        const ambiguous = 'O0oIl1|`\'"{}[]()<>~,.;:';
-        charset = charset.split('').filter((char) => !ambiguous.includes(char)).join('');
-    }
+    charset = filterAmbiguous(charset, options.avoidAmbiguous);
 
     return charset;
 };
 
 export const generateRandomPassword = ({ length, options }) => {
-    const charset = buildCharset(options);
+    if (!Number.isFinite(length) || length <= 0) return '';
+
+    const upper = filterAmbiguous('ABCDEFGHIJKLMNOPQRSTUVWXYZ', options.avoidAmbiguous);
+    const lower = filterAmbiguous('abcdefghijklmnopqrstuvwxyz', options.avoidAmbiguous);
+    const numbers = filterAmbiguous('0123456789', options.avoidAmbiguous);
+    const symbols = filterAmbiguous('!@#$%^&*()_+-=[]{}|;:,.<>?', options.avoidAmbiguous);
+
+    const enabledGroups = [];
+    if (options.uppercase && upper.length) enabledGroups.push(upper);
+    if (options.lowercase && lower.length) enabledGroups.push(lower);
+    if (options.numbers && numbers.length) enabledGroups.push(numbers);
+    if (options.symbols && symbols.length) enabledGroups.push(symbols);
+
+    const charset = enabledGroups.join('');
     if (!charset.length) return '';
 
-    let password = '';
-    const buffer = new Uint8Array(length);
-    crypto.getRandomValues(buffer);
+    // Not enough length to guarantee each selected character group.
+    if (length < enabledGroups.length) {
+        let password = '';
+        const buffer = new Uint8Array(length);
+        crypto.getRandomValues(buffer);
 
-    for (let i = 0; i < length; i++) {
-        password += charset.charAt(buffer[i] % charset.length);
+        for (let i = 0; i < length; i++) {
+            password += charset.charAt(buffer[i] % charset.length);
+        }
+
+        return password;
     }
 
-    return password;
+    const chars = [];
+
+    enabledGroups.forEach((group) => {
+        chars.push(group.charAt(randomIndex(group.length)));
+    });
+
+    const remaining = length - chars.length;
+    if (remaining > 0) {
+        const buffer = new Uint8Array(remaining);
+        crypto.getRandomValues(buffer);
+
+        for (let i = 0; i < remaining; i++) {
+            chars.push(charset.charAt(buffer[i] % charset.length));
+        }
+    }
+
+    return shuffle(chars).join('');
 };
 
 export const generateMemorablePassword = ({
@@ -106,6 +171,8 @@ export const generateMemorablePassword = ({
         }
     }
 
+    ensureAtLeastOneUppercase(words, useUppercase);
+
     const separator = useSeparators ? randomSeparator() : '';
     let password = words.join(separator);
 
@@ -145,6 +212,8 @@ export const generateRhymingPassword = ({
         selectedWords = chooseMany(candidates, wordCount).map((word) => maybeCapitalize(word, useUppercase));
     }
 
+    ensureAtLeastOneUppercase(selectedWords, useUppercase);
+
     const separator = useSeparators ? randomSeparator() : '';
     let password = selectedWords.join(separator);
 
@@ -172,6 +241,8 @@ export const generateObjectsOnlyPassword = ({
     for (let i = 0; i < wordCount; i++) {
         words.push(getRandomWord(WORD_LISTS.nouns.objects, useUppercase, wordLength));
     }
+
+    ensureAtLeastOneUppercase(words, useUppercase);
 
     const separator = useSeparators ? randomSeparator() : '';
     let password = words.join(separator);
@@ -207,6 +278,8 @@ export const generateRhymingObjectsPassword = ({
         const candidates = getWordCandidates(RHYMING_OBJECTS[randomFamilyKey], wordLength, wordCount);
         selectedWords = chooseMany(candidates, wordCount).map((word) => maybeCapitalize(word, useUppercase));
     }
+
+    ensureAtLeastOneUppercase(selectedWords, useUppercase);
 
     const separator = useSeparators ? randomSeparator() : '';
     let password = selectedWords.join(separator);

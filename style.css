@@ -749,6 +749,12 @@ header {
     gap: 0.75rem;
 }
 
+/* Respect the hidden attribute */
+.number-count-control[hidden],
+.symbol-count-control[hidden] {
+    display: none;
+}
+
 .number-count-control .password-controls,
 .symbol-count-control .password-controls {
     flex: 1;

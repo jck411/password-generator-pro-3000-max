@@ -45,6 +45,7 @@ class PasswordController {
         };
 
         this.customWordInput = document.getElementById('customWord');
+        this.clearCustomWordBtn = document.getElementById('clearCustomWord');
         this.wordPositionStart = document.getElementById('wordPositionStart');
         this.wordPositionEnd = document.getElementById('wordPositionEnd');
 
@@ -91,6 +92,13 @@ class PasswordController {
         });
 
         this.customWordInput.addEventListener('input', () => this.generateAllPasswords());
+
+        if (this.clearCustomWordBtn) {
+            this.clearCustomWordBtn.addEventListener('click', () => {
+                this.customWordInput.value = '';
+                this.generateAllPasswords();
+            });
+        }
 
         this.wordPositionStart.addEventListener('click', () => {
             this.customWordPosition = 'start';

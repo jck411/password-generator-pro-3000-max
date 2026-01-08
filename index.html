@@ -289,14 +289,21 @@
                     </fieldset>
 
                     <div class="custom-word-section">
-                        <label for="customWord">Include Custom Word:</label>
-                        <input type="text" id="customWord" placeholder="Your word here..." maxlength="32"
-                            autocomplete="off">
-                        <div class="word-position-toggle" role="group" aria-label="Word position">
-                            <button type="button" id="wordPositionStart" class="position-btn active"
-                                title="Place word at start" aria-pressed="true">Start</button>
-                            <button type="button" id="wordPositionEnd" class="position-btn" title="Place word at end"
-                                aria-pressed="false">End</button>
+                        <div class="custom-word-header">
+                            <label for="customWord">Include Custom Word at</label>
+                            <div class="word-position-toggle" role="group" aria-label="Word position">
+                                <button type="button" id="wordPositionStart" class="position-btn active"
+                                    title="Place word at start" aria-pressed="true">start</button>
+                                <span class="position-separator">|</span>
+                                <button type="button" id="wordPositionEnd" class="position-btn"
+                                    title="Place word at end" aria-pressed="false">end</button>
+                            </div>
+                        </div>
+                        <div class="custom-word-input-wrapper">
+                            <input type="text" id="customWord" placeholder="Your word here..." maxlength="32"
+                                autocomplete="off">
+                            <button type="button" id="clearCustomWord" class="clear-word-btn" title="Clear custom word"
+                                aria-label="Clear custom word">×</button>
                         </div>
                     </div>
 

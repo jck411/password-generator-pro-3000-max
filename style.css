@@ -358,7 +358,7 @@ header {
     border-radius: var(--radius-md);
     color: var(--accent);
     font-family: inherit;
-    font-size: 1.125rem;
+    font-size: clamp(0.85rem, 0.75rem + 1vw, 1.125rem);
     font-weight: 600;
     letter-spacing: 0.02em;
     outline: none;
@@ -1363,6 +1363,10 @@ input:focus-visible {
     .info-modal-btn {
         width: 100%;
         justify-content: center;
+    }
+
+    .password-output {
+        font-size: clamp(0.8rem, 0.75rem + 1.5vw, 1.05rem);
     }
 }
 

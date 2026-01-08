@@ -46,6 +46,8 @@ class PasswordController {
 
         this.customWordInput = document.getElementById('customWord');
         this.clearCustomWordBtn = document.getElementById('clearCustomWord');
+        this.customWordToggle = document.getElementById('customWordToggle');
+        this.customWordSection = document.getElementById('customWordSection');
         this.wordPositionStart = document.getElementById('wordPositionStart');
         this.wordPositionEnd = document.getElementById('wordPositionEnd');
 
@@ -97,6 +99,14 @@ class PasswordController {
             this.clearCustomWordBtn.addEventListener('click', () => {
                 this.customWordInput.value = '';
                 this.generateAllPasswords();
+            });
+        }
+
+        if (this.customWordToggle && this.customWordSection) {
+            this.customWordToggle.addEventListener('click', () => {
+                const isExpanded = this.customWordToggle.getAttribute('aria-expanded') === 'true';
+                this.customWordToggle.setAttribute('aria-expanded', !isExpanded);
+                this.customWordSection.classList.toggle('expanded', !isExpanded);
             });
         }
 

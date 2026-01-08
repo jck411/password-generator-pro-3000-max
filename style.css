@@ -987,6 +987,23 @@ header {
     font-weight: 600;
 }
 
+/* Custom Word Toggle Button (mobile only) */
+.custom-word-toggle {
+    display: none;
+    /* Hidden by default on desktop */
+}
+
+.custom-word-toggle .toggle-icon {
+    font-size: 1rem;
+}
+
+.custom-word-toggle .toggle-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+
 /* Info Boxes */
 .memorable-info {
     display: flex;
@@ -1442,6 +1459,24 @@ input:focus-visible {
     .custom-word-section {
         flex-direction: column;
         align-items: stretch;
+        display: none;
+    }
+
+    .custom-word-section.expanded {
+        display: flex;
+    }
+
+    .custom-word-toggle {
+        display: flex;
+    }
+
+    .custom-word-toggle[aria-expanded="true"] {
+        background: var(--accent-soft);
+        border-color: var(--accent);
+    }
+
+    .custom-word-toggle[aria-expanded="true"] .toggle-label {
+        color: var(--accent);
     }
 
     .word-position-toggle {

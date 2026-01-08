@@ -286,9 +286,15 @@
                             <input type="checkbox" id="objectsOnly">
                             <label for="objectsOnly">🎁 Objects Only</label>
                         </div>
+                        <button type="button" id="customWordToggle" class="option custom-word-toggle"
+                            aria-expanded="false" aria-controls="customWordSection"
+                            title="Add your own custom word to the password">
+                            <span class="toggle-icon">✏️</span>
+                            <span class="toggle-label">Custom Word</span>
+                        </button>
                     </fieldset>
 
-                    <div class="custom-word-section">
+                    <div class="custom-word-section" id="customWordSection">
                         <div class="custom-word-header">
                             <label for="customWord">Include Custom Word at</label>
                             <div class="word-position-toggle" role="group" aria-label="Word position">

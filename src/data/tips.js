@@ -56,8 +56,8 @@ export const securityTips = [
 
 export const passwordTypeTips = [
     {
-        icon: '🧠',
-        title: 'Human Memorable',
+        icon: '📝',
+        title: 'Use Words',
         description: 'Uses actual words in a pattern (adjective-noun-verb) for easier recall while staying secure.'
     },
     {

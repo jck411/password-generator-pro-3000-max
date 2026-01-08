@@ -25,11 +25,14 @@ const filterAmbiguous = (chars, avoidAmbiguous) => {
         .join('');
 };
 
+const uppercaseFirstLetter = (word) => {
+    if (!word) return word;
+    return word.charAt(0).toUpperCase() + word.slice(1);
+};
+
 const maybeCapitalize = (word, useUppercase) => {
-    if (useUppercase && Math.random() > 0.5) {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    }
-    return word;
+    if (!useUppercase || randomIndex(2) === 0) return word;
+    return uppercaseFirstLetter(word);
 };
 
 const ensureAtLeastOneUppercase = (words, useUppercase) => {
@@ -38,8 +41,74 @@ const ensureAtLeastOneUppercase = (words, useUppercase) => {
     if (!words.length) return words;
 
     const idx = randomNumber(0, words.length - 1);
-    words[idx] = words[idx].charAt(0).toUpperCase() + words[idx].slice(1);
+    words[idx] = uppercaseFirstLetter(words[idx]);
     return words;
+};
+
+const LEET_MAPS = {
+    full: {
+        a: ['4', '@'],
+        b: ['8'],
+        e: ['3'],
+        g: ['6', '9'],
+        i: ['1', '!'],
+        l: ['1'],
+        o: ['0'],
+        s: ['5', '$'],
+        t: ['7', '+'],
+        z: ['2']
+    },
+    lite: {
+        a: ['4', '@'],
+        e: ['3'],
+        i: ['1', '!'],
+        o: ['0'],
+        s: ['5', '$'],
+        t: ['7']
+    }
+};
+
+const LITE_REPLACE_CHANCE = 40;
+
+const pickLeetReplacement = (options, avoidAmbiguous) => {
+    const replacements = avoidAmbiguous
+        ? options.filter((option) => !AMBIGUOUS_CHARS.includes(option))
+        : options;
+
+    if (!replacements.length) return null;
+    return replacements[randomIndex(replacements.length)];
+};
+
+const shouldReplaceLeet = (mode) => {
+    if (mode === 'full') return true;
+    return randomIndex(100) < LITE_REPLACE_CHANCE;
+};
+
+export const applyLeetSpeak = ({ text, mode, avoidAmbiguous }) => {
+    if (!text || mode === 'off') return text;
+    const map = LEET_MAPS[mode];
+    if (!map) return text;
+
+    let result = '';
+    for (const char of text) {
+        const isUpper = char >= 'A' && char <= 'Z';
+        if (isUpper) {
+            result += char;
+            continue;
+        }
+
+        const lower = char.toLowerCase();
+        const replacements = map[lower];
+        if (!replacements || !shouldReplaceLeet(mode)) {
+            result += char;
+            continue;
+        }
+
+        const replacement = pickLeetReplacement(replacements, avoidAmbiguous);
+        result += replacement ?? char;
+    }
+
+    return result;
 };
 
 const flattenLists = (lists) => lists.reduce((accumulator, list) => accumulator.concat(list), []);

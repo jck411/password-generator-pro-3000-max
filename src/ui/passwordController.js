@@ -5,9 +5,10 @@ import {
     generateMemorablePassword,
     generateRhymingPassword,
     generateObjectsOnlyPassword,
-    generateRhymingObjectsPassword
+    generateRhymingObjectsPassword,
+    applyLeetSpeak
 } from '../generators/passwordGenerators.js';
-import { randomSeparator } from '../utils/random.js';
+import { randomSeparator, randomNumber } from '../utils/random.js';
 import { calculateStrength, strengthMeta } from '../utils/strength.js';
 
 class PasswordController {
@@ -46,6 +47,8 @@ class PasswordController {
             separators: document.getElementById('separators'),
             avoidAmbiguous: document.getElementById('avoidAmbiguous'),
             humanMemorable: document.getElementById('humanMemorable'),
+            leetFull: document.getElementById('leetFull'),
+            leetLite: document.getElementById('leetLite'),
             rhymingPassword: document.getElementById('rhymingPassword'),
             objectsOnly: document.getElementById('objectsOnly')
         };
@@ -107,6 +110,10 @@ class PasswordController {
                     this.options.objectsOnly.checked = false;
                 } else if ((key === 'rhymingPassword' || key === 'objectsOnly') && option.checked) {
                     this.options.humanMemorable.checked = false;
+                } else if (key === 'leetFull' && option.checked) {
+                    this.options.leetLite.checked = false;
+                } else if (key === 'leetLite' && option.checked) {
+                    this.options.leetFull.checked = false;
                 }
 
                 this.checkModeAndUpdateSlider();
@@ -393,6 +400,11 @@ class PasswordController {
         const wordLength = parseInt(this.lengthSlider.value, 10);
         const wordCount = this.wordCount;
         const useSeparators = this.options.separators.checked;
+        const leetMode = this.options.leetFull.checked
+            ? 'full'
+            : this.options.leetLite.checked
+                ? 'lite'
+                : 'off';
 
         const baseConfig = {
             wordCount,
@@ -428,8 +440,10 @@ class PasswordController {
 
         if (customWord) {
             let formattedWord = customWord;
-            if (this.options.uppercase.checked && Math.random() > 0.5) {
-                formattedWord = formattedWord.charAt(0).toUpperCase() + formattedWord.slice(1);
+            if (this.options.uppercase.checked && formattedWord.length) {
+                if (randomNumber(0, 1) === 1) {
+                    formattedWord = formattedWord.charAt(0).toUpperCase() + formattedWord.slice(1);
+                }
             }
 
             if (isWordMode) {
@@ -444,6 +458,14 @@ class PasswordController {
                         ? `${formattedWord}${password}`
                         : `${password}${formattedWord}`;
             }
+        }
+
+        if (isWordMode && leetMode !== 'off') {
+            password = applyLeetSpeak({
+                text: password,
+                mode: leetMode,
+                avoidAmbiguous: this.options.avoidAmbiguous.checked
+            });
         }
 
         return password;

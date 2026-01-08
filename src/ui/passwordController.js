@@ -263,8 +263,37 @@ class PasswordController {
         const input = slot.querySelector('.password-output');
         const password = this.generateSinglePassword();
         input.value = password;
+        this.adjustMobileFontSize(input, password.length);
         this.animatePasswordInput(input);
         return password;
+    }
+
+    /**
+     * Adjusts font size on mobile based on password length
+     * Scales down as password gets longer, with a minimum size
+     */
+    adjustMobileFontSize(input, passwordLength) {
+        // Only apply on mobile (matches CSS media query)
+        if (window.innerWidth > 640) {
+            input.style.removeProperty('--mobile-pw-font-size');
+            return;
+        }
+
+        // Font size parameters
+        const baseFontRem = 0.95;   // Starting font size in rem
+        const minFontRem = 0.65;    // Minimum font size (don't go smaller)
+        const startShrinkAt = 20;   // Start shrinking at this length
+        const shrinkRate = 0.012;   // How fast to shrink per character
+
+        let fontSize = baseFontRem;
+
+        if (passwordLength > startShrinkAt) {
+            // Calculate reduction based on how much longer than threshold
+            const excess = passwordLength - startShrinkAt;
+            fontSize = Math.max(minFontRem, baseFontRem - (excess * shrinkRate));
+        }
+
+        input.style.setProperty('--mobile-pw-font-size', `${fontSize}rem`);
     }
 
     generateSinglePassword() {

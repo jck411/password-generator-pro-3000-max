@@ -1366,7 +1366,8 @@ input:focus-visible {
     }
 
     .password-output {
-        font-size: clamp(0.8rem, 0.75rem + 1.5vw, 1.05rem);
+        /* Dynamic font size controlled by JS, with fallback */
+        font-size: var(--mobile-pw-font-size, clamp(0.8rem, 0.75rem + 1.5vw, 1.05rem));
     }
 }
 

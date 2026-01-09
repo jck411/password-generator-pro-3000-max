@@ -242,7 +242,7 @@
                                 aria-label="Increase word count">+</button>
                         </div>
                     </div>
-                    <div class="control-group number-count-control" id="numberCountControl">
+                    <div class="control-group number-count-control" id="numberCountControl" hidden>
                         <div class="password-controls" role="group" aria-label="Number count">
                             <button type="button" class="pw-count-btn" id="numberCountDown"
                                 aria-label="Decrease number count">-</button>
@@ -284,7 +284,7 @@
                     <fieldset class="options">
                         <legend class="visually-hidden">Character Options</legend>
                         <div class="option" title="Include capital letters A-Z for stronger passwords">
-                            <input type="checkbox" id="uppercase" checked>
+                            <input type="checkbox" id="uppercase">
                             <label for="uppercase">ABC Uppercase</label>
                         </div>
                         <div class="option"
@@ -293,11 +293,11 @@
                             <label for="uppercaseRandom">Aa Random Caps</label>
                         </div>
                         <div class="option" title="Include lowercase letters a-z">
-                            <input type="checkbox" id="lowercase" checked>
+                            <input type="checkbox" id="lowercase">
                             <label for="lowercase">abc Lowercase</label>
                         </div>
                         <div class="option" title="Include digits 0-9 for added security">
-                            <input type="checkbox" id="numbers" checked>
+                            <input type="checkbox" id="numbers">
                             <label for="numbers">123 Numbers</label>
                         </div>
                         <div class="option" title="Include special characters like @#$%^& for maximum entropy">
@@ -314,8 +314,13 @@
                             <input type="checkbox" id="humanMemorable">
                             <label for="humanMemorable">📝 Use Words</label>
                         </div>
+                        <div class="option leet-speak-option"
+                            title="Replace letters with similar numbers (a→4, e→3, o→0) for extra security">
+                            <input type="checkbox" id="leetSpeak">
+                            <label for="leetSpeak">1337 Speak</label>
+                        </div>
                         <div class="option" title="Use dashes, dots, or underscores between words for easier reading">
-                            <input type="checkbox" id="separators" checked>
+                            <input type="checkbox" id="separators">
                             <label for="separators">- Dividers</label>
                         </div>
                         <div class="option rhyming-option"
@@ -328,10 +333,45 @@
                             <input type="checkbox" id="objectsOnly">
                             <label for="objectsOnly">🎁 Objects Only</label>
                         </div>
-                        <div class="option leet-speak-option"
-                            title="Replace letters with similar numbers (a→4, e→3, o→0) for extra security">
-                            <input type="checkbox" id="leetSpeak">
-                            <label for="leetSpeak">1337 Speak</label>
+                        <div class="option nfl-teams-option"
+                            title="Use NFL team names for memorable sports-themed passwords">
+                            <input type="checkbox" id="nflTeams">
+                            <label for="nflTeams">🏈 NFL Teams</label>
+                        </div>
+                        <div class="option mlb-teams-option"
+                            title="Use MLB team names for memorable baseball-themed passwords">
+                            <input type="checkbox" id="mlbTeams">
+                            <label for="mlbTeams">⚾ MLB Teams</label>
+                        </div>
+                        <div class="option nba-teams-option"
+                            title="Use NBA team names for memorable basketball-themed passwords">
+                            <input type="checkbox" id="nbaTeams">
+                            <label for="nbaTeams">🏀 NBA Teams</label>
+                        </div>
+                        <div class="option nhl-teams-option"
+                            title="Use NHL team names for memorable hockey-themed passwords">
+                            <input type="checkbox" id="nhlTeams">
+                            <label for="nhlTeams">🏒 NHL Teams</label>
+                        </div>
+                        <div class="option epl-teams-option"
+                            title="Use English Premier League team names for memorable football-themed passwords">
+                            <input type="checkbox" id="eplTeams">
+                            <label for="eplTeams">⚽ EPL Teams</label>
+                        </div>
+                        <div class="option laliga-teams-option"
+                            title="Use La Liga team names for memorable Spanish football-themed passwords">
+                            <input type="checkbox" id="laLigaTeams">
+                            <label for="laLigaTeams">⚽ La Liga</label>
+                        </div>
+                        <div class="option ipl-teams-option"
+                            title="Use Indian Premier League team names for memorable cricket-themed passwords">
+                            <input type="checkbox" id="iplTeams">
+                            <label for="iplTeams">🏏 IPL Teams</label>
+                        </div>
+                        <div class="option f1-teams-option"
+                            title="Use Formula 1 team names for memorable racing-themed passwords">
+                            <input type="checkbox" id="f1Teams">
+                            <label for="f1Teams">🏎️ F1 Teams</label>
                         </div>
                         <button type="button" id="customWordToggle" class="option custom-word-toggle"
                             aria-expanded="false" aria-controls="customWordSection"

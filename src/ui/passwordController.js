@@ -5,8 +5,18 @@ import {
     generateMemorablePassword,
     generateRhymingPassword,
     generateObjectsOnlyPassword,
-    generateRhymingObjectsPassword
+    generateRhymingObjectsPassword,
+    generateNFLTeamsPassword,
+    generateMLBTeamsPassword,
+    generateNBATeamsPassword,
+    generateNHLTeamsPassword,
+    generateEPLTeamsPassword,
+    generateIPLTeamsPassword,
+    generateLaLigaTeamsPassword,
+    generateF1TeamsPassword,
+    generateSportsComboPassword
 } from '../generators/passwordGenerators.js';
+import { WORD_LISTS } from '../data/wordLists.js';
 import { randomSeparator, randomNumber } from '../utils/random.js';
 import { calculateStrength, strengthMeta } from '../utils/strength.js';
 
@@ -71,6 +81,14 @@ class PasswordController {
             humanMemorable: document.getElementById('humanMemorable'),
             rhymingPassword: document.getElementById('rhymingPassword'),
             objectsOnly: document.getElementById('objectsOnly'),
+            nflTeams: document.getElementById('nflTeams'),
+            mlbTeams: document.getElementById('mlbTeams'),
+            nbaTeams: document.getElementById('nbaTeams'),
+            nhlTeams: document.getElementById('nhlTeams'),
+            eplTeams: document.getElementById('eplTeams'),
+            iplTeams: document.getElementById('iplTeams'),
+            laLigaTeams: document.getElementById('laLigaTeams'),
+            f1Teams: document.getElementById('f1Teams'),
             leetSpeak: document.getElementById('leetSpeak')
         };
 
@@ -159,7 +177,15 @@ class PasswordController {
                 if (key === 'humanMemorable' && option.checked) {
                     this.options.rhymingPassword.checked = false;
                     this.options.objectsOnly.checked = false;
-                } else if ((key === 'rhymingPassword' || key === 'objectsOnly') && option.checked) {
+                    this.options.nflTeams.checked = false;
+                    this.options.mlbTeams.checked = false;
+                    this.options.nbaTeams.checked = false;
+                    this.options.nhlTeams.checked = false;
+                    this.options.eplTeams.checked = false;
+                    this.options.iplTeams.checked = false;
+                    this.options.laLigaTeams.checked = false;
+                    this.options.f1Teams.checked = false;
+                } else if ((key === 'rhymingPassword' || key === 'objectsOnly' || key === 'nflTeams' || key === 'mlbTeams' || key === 'nbaTeams' || key === 'nhlTeams' || key === 'eplTeams' || key === 'iplTeams' || key === 'laLigaTeams' || key === 'f1Teams') && option.checked) {
                     this.options.humanMemorable.checked = false;
                 }
 
@@ -355,6 +381,13 @@ class PasswordController {
 
         this.numberCount = nextValue;
         this.updateNumberCountControls();
+
+        // If count reaches 0, untick the checkbox and hide the control
+        if (this.numberCount === 0) {
+            this.options.numbers.checked = false;
+            this.updateNumberCountVisibility();
+        }
+
         this.generateAllPasswords();
     }
 
@@ -396,6 +429,13 @@ class PasswordController {
 
         this.symbolCount = nextValue;
         this.updateSymbolCountControls();
+
+        // If count reaches 0, untick the checkbox and hide the control
+        if (this.symbolCount === 0) {
+            this.options.symbols.checked = false;
+            this.updateSymbolCountVisibility();
+        }
+
         this.generateAllPasswords();
     }
 
@@ -437,8 +477,30 @@ class PasswordController {
         return (
             this.options.humanMemorable.checked ||
             this.options.rhymingPassword.checked ||
-            this.options.objectsOnly.checked
+            this.options.objectsOnly.checked ||
+            this.options.nflTeams.checked ||
+            this.options.mlbTeams.checked ||
+            this.options.nbaTeams.checked ||
+            this.options.nhlTeams.checked ||
+            this.options.eplTeams.checked ||
+            this.options.iplTeams.checked ||
+            this.options.laLigaTeams.checked ||
+            this.options.f1Teams.checked
         );
+    }
+
+    hasSportsCombo() {
+        const sportsChecked = [
+            this.options.nflTeams.checked,
+            this.options.mlbTeams.checked,
+            this.options.nbaTeams.checked,
+            this.options.nhlTeams.checked,
+            this.options.eplTeams.checked,
+            this.options.iplTeams.checked,
+            this.options.laLigaTeams.checked,
+            this.options.f1Teams.checked
+        ].filter(Boolean).length;
+        return sportsChecked >= 2;
     }
 
     checkModeAndUpdateSlider() {
@@ -463,9 +525,13 @@ class PasswordController {
 
     updateLengthLabel(value, actualLength = null) {
         this.updateLengthSliderProgress();
+        const config = MODE_CONFIGS[this.currentMode];
+        const isAnyLength = this.currentMode === 'words' && parseInt(value, 10) === config.min;
+
         if (this.currentMode === 'words') {
             this.lengthLabelText.textContent = 'Word length';
-            let displayText = `${value}`;
+            let displayValue = isAnyLength ? 'any' : value;
+            let displayText = `${displayValue}`;
             if (actualLength) {
                 displayText += ` <span style="font-size: 0.8em; opacity: 0.7; font-weight: normal;">(Password length: ${actualLength})</span>`;
             }
@@ -540,7 +606,10 @@ class PasswordController {
     generateSinglePassword() {
         const customWord = this.customWordInput.value.trim();
         const isWordMode = this.isWordMode();
-        const wordLength = parseInt(this.lengthSlider.value, 10);
+        const sliderValue = parseInt(this.lengthSlider.value, 10);
+        const config = MODE_CONFIGS.words;
+        // If slider is at minimum in word mode, treat as "any" length (undefined)
+        const wordLength = (isWordMode && sliderValue === config.min) ? undefined : sliderValue;
         const wordCount = this.wordCount;
         const useSeparators = this.options.separators.checked;
         const uppercaseStyle = this.options.uppercaseRandom.checked ? 'random' : 'first';
@@ -570,6 +639,37 @@ class PasswordController {
             password = generateMemorablePassword(baseConfig);
         } else if (this.options.objectsOnly.checked) {
             password = generateObjectsOnlyPassword(baseConfig);
+        } else if (this.hasSportsCombo()) {
+            // Combo mode: multiple sports selected
+            const teamLists = [];
+            if (this.options.nflTeams.checked) teamLists.push(WORD_LISTS.nouns.nflTeams);
+            if (this.options.mlbTeams.checked) teamLists.push(WORD_LISTS.nouns.mlbTeams);
+            if (this.options.nbaTeams.checked) teamLists.push(WORD_LISTS.nouns.nbaTeams);
+            if (this.options.nhlTeams.checked) teamLists.push(WORD_LISTS.nouns.nhlTeams);
+            if (this.options.eplTeams.checked) teamLists.push(WORD_LISTS.nouns.eplTeams);
+            if (this.options.iplTeams.checked) teamLists.push(WORD_LISTS.nouns.iplTeams);
+            if (this.options.laLigaTeams.checked) teamLists.push(WORD_LISTS.nouns.laLigaTeams);
+            if (this.options.f1Teams.checked) teamLists.push(WORD_LISTS.nouns.f1Teams);
+            password = generateSportsComboPassword({
+                ...baseConfig,
+                teamLists
+            });
+        } else if (this.options.nflTeams.checked) {
+            password = generateNFLTeamsPassword(baseConfig);
+        } else if (this.options.mlbTeams.checked) {
+            password = generateMLBTeamsPassword(baseConfig);
+        } else if (this.options.nbaTeams.checked) {
+            password = generateNBATeamsPassword(baseConfig);
+        } else if (this.options.nhlTeams.checked) {
+            password = generateNHLTeamsPassword(baseConfig);
+        } else if (this.options.eplTeams.checked) {
+            password = generateEPLTeamsPassword(baseConfig);
+        } else if (this.options.iplTeams.checked) {
+            password = generateIPLTeamsPassword(baseConfig);
+        } else if (this.options.laLigaTeams.checked) {
+            password = generateLaLigaTeamsPassword(baseConfig);
+        } else if (this.options.f1Teams.checked) {
+            password = generateF1TeamsPassword(baseConfig);
         } else {
             password = generateRandomPassword({
                 length: parseInt(this.lengthSlider.value, 10),

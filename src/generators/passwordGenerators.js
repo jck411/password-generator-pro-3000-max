@@ -434,3 +434,377 @@ export const generateRhymingObjectsPassword = ({
 
     return password;
 };
+
+export const generateNFLTeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.nflTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateMLBTeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.mlbTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateNBATeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.nbaTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateNHLTeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.nhlTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateEPLTeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.eplTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateIPLTeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.iplTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateLaLigaTeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.laLigaTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateF1TeamsPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end'
+}) => {
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(WORD_LISTS.nouns.f1Teams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};
+
+export const generateSportsComboPassword = ({
+    wordCount = 1,
+    wordLength,
+    includeNumbers,
+    includeSymbols,
+    useUppercase,
+    useSeparators,
+    uppercaseStyle = 'first',
+    leetSpeak = false,
+    numberCount = 2,
+    numberPosition = 'end',
+    symbolCount = 2,
+    symbolPosition = 'end',
+    teamLists = []
+}) => {
+    // Combine all provided team lists
+    const combinedTeams = teamLists.flat();
+    if (!combinedTeams.length) return '';
+
+    const words = [];
+    for (let i = 0; i < wordCount; i++) {
+        words.push(getRandomWord(combinedTeams, useUppercase, wordLength, uppercaseStyle));
+    }
+
+    ensureAtLeastOneUppercase(words, useUppercase, uppercaseStyle);
+
+    const separator = useSeparators ? randomSeparator() : '';
+    let password = words.join(separator);
+
+    if (includeNumbers && numberCount > 0) {
+        const numbers = generateNumberString(numberCount);
+        password = applyCharsToPassword(password, numbers, numberPosition, separator);
+    }
+
+    if (includeSymbols && symbolCount > 0) {
+        const symbols = generateSymbolString(symbolCount);
+        password = applyCharsToPassword(password, symbols, symbolPosition, separator);
+    }
+
+    if (leetSpeak) {
+        password = applyLeetSpeak(password);
+    }
+
+    return password;
+};

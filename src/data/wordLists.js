@@ -95,6 +95,95 @@ export const WORD_LISTS = {
             'cerulean', 'aquamarine', 'periwinkle', 'chartreuse', 'ultramarine', 'amethyst', 'sienna', 'sepia', 'umber', 'ochre',
             'lilac', 'plum', 'mauve', 'salmon', 'mustard', 'celadon', 'taupe', 'russet', 'mulberry', 'verdigris',
             'yellowgreen', 'springgreen', 'lightyellow', 'midnightblue', 'darkmagenta', 'lightcoral', 'darkslate', 'paleturquoise'
+        ],
+
+        nflTeams: [
+            // AFC East
+            'Bills', 'Dolphins', 'Patriots', 'Jets',
+            // AFC North
+            'Ravens', 'Bengals', 'Browns', 'Steelers',
+            // AFC South
+            'Texans', 'Colts', 'Jaguars', 'Titans',
+            // AFC West
+            'Broncos', 'Chiefs', 'Raiders', 'Chargers',
+            // NFC East
+            'Cowboys', 'Giants', 'Eagles', 'Commanders',
+            // NFC North
+            'Bears', 'Lions', 'Packers', 'Vikings',
+            // NFC South
+            'Falcons', 'Panthers', 'Saints', 'Buccaneers',
+            // NFC West
+            'Cardinals', 'Rams', 'Niners', 'Seahawks'
+        ],
+
+        mlbTeams: [
+            // AL East
+            'Yankees', 'RedSox', 'Orioles', 'Rays', 'BlueJays',
+            // AL Central
+            'Guardians', 'Twins', 'Tigers', 'Royals', 'WhiteSox',
+            // AL West
+            'Astros', 'Rangers', 'Mariners', 'Angels', 'Athletics',
+            // NL East
+            'Braves', 'Phillies', 'Marlins', 'Mets', 'Nationals',
+            // NL Central
+            'Brewers', 'Cubs', 'Reds', 'Pirates', 'Cardinals',
+            // NL West
+            'Dodgers', 'Diamondbacks', 'Padres', 'Giants', 'Rockies'
+        ],
+
+        nbaTeams: [
+            // Atlantic Division
+            'Celtics', 'Nets', 'Knicks', 'Sixers', 'Raptors',
+            // Central Division
+            'Bulls', 'Cavaliers', 'Pistons', 'Pacers', 'Bucks',
+            // Southeast Division
+            'Hawks', 'Hornets', 'Heat', 'Magic', 'Wizards',
+            // Northwest Division
+            'Nuggets', 'Timberwolves', 'Thunder', 'Blazers', 'Jazz',
+            // Pacific Division
+            'Warriors', 'Clippers', 'Lakers', 'Suns', 'Kings',
+            // Southwest Division
+            'Mavericks', 'Rockets', 'Grizzlies', 'Pelicans', 'Spurs'
+        ],
+
+        nhlTeams: [
+            // Atlantic Division
+            'Bruins', 'Sabres', 'RedWings', 'Panthers', 'Canadiens', 'Senators', 'Lightning', 'MapleLeafs',
+            // Metropolitan Division
+            'Hurricanes', 'BlueJackets', 'Devils', 'Islanders', 'Rangers', 'Flyers', 'Penguins', 'Capitals',
+            // Central Division
+            'Coyotes', 'Blackhawks', 'Avalanche', 'Stars', 'Wild', 'Predators', 'Blues', 'Jets',
+            // Pacific Division
+            'Ducks', 'Flames', 'Oilers', 'Kings', 'Sharks', 'Kraken', 'Canucks', 'GoldenKnights'
+        ],
+
+        eplTeams: [
+            // English Premier League (2024-25 season)
+            'Arsenal', 'AstonVilla', 'Bournemouth', 'Brentford', 'Brighton',
+            'Chelsea', 'CrystalPalace', 'Everton', 'Fulham', 'Ipswich',
+            'Leicester', 'Liverpool', 'ManCity', 'ManUnited', 'Newcastle',
+            'NottmForest', 'Southampton', 'Spurs', 'WestHam', 'Wolves'
+        ],
+
+        iplTeams: [
+            // Indian Premier League (10 teams)
+            'RoyalChallengers', 'SuperKings', 'MumbaiIndians', 'KolkataRiders',
+            'Sunrisers', 'DelhiCapitals', 'GujaratTitans', 'RajasthanRoyals',
+            'LucknowGiants', 'PunjabKings'
+        ],
+
+        laLigaTeams: [
+            // La Liga (Spanish First Division - 2024-25 season)
+            'RealMadrid', 'Barcelona', 'Atletico', 'Sevilla', 'Valencia',
+            'Villarreal', 'RealSociedad', 'RealBetis', 'AthleticBilbao', 'Osasuna',
+            'CeltaVigo', 'Mallorca', 'Getafe', 'Girona', 'LasPalmas',
+            'Alaves', 'Leganes', 'RayoVallecano', 'Valladolid', 'Espanyol'
+        ],
+
+        f1Teams: [
+            // Formula 1 Teams (2024 season)
+            'RedBull', 'Ferrari', 'Mercedes', 'McLaren', 'AstonMartin',
+            'Alpine', 'Williams', 'Haas', 'Sauber', 'RacingBulls'
         ]
     },
 

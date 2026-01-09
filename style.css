@@ -763,10 +763,56 @@ header {
     font-weight: 600;
 }
 
+/* Slider with +/- buttons wrapper */
+.slider-with-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.slider-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--bg-elevated);
+    border: 1px solid rgba(226, 168, 75, 0.3);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: inherit;
+    line-height: 1;
+}
+
+.slider-btn:hover {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(226, 168, 75, 0.25);
+}
+
+.slider-btn:active {
+    transform: scale(0.95);
+}
+
+.slider-btn:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 /* Range Slider */
 #length {
     --slider-progress: 0%;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
     height: 28px;
     /* larger hit area without visual noise */
     background: transparent;

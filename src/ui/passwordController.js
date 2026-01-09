@@ -42,6 +42,8 @@ class PasswordController {
         this.lengthSlider = document.getElementById('length');
         this.lengthValue = document.getElementById('lengthValue');
         this.lengthLabelText = document.getElementById('lengthLabelText');
+        this.lengthDown = document.getElementById('lengthDown');
+        this.lengthUp = document.getElementById('lengthUp');
         this.strengthDot = document.getElementById('strengthDot');
         this.strengthText = document.getElementById('strengthText');
         this.copyFeedback = document.getElementById('copyFeedback');
@@ -125,6 +127,7 @@ class PasswordController {
             words: MODE_CONFIGS.words.default
         };
 
+        this.updateLengthButtons();
         this.updateWordCountControls();
         this.updateNumberCountControls();
         this.updateSymbolCountControls();
@@ -160,8 +163,15 @@ class PasswordController {
             const value = parseInt(this.lengthSlider.value, 10);
             this.lastModeValues[this.currentMode] = value;
             this.updateLengthLabel(value);
+            this.updateLengthButtons();
             this.generateAllPasswords();
         });
+
+        // Length +/- buttons
+        if (this.lengthDown && this.lengthUp) {
+            this.lengthDown.addEventListener('click', () => this.adjustLength(-1));
+            this.lengthUp.addEventListener('click', () => this.adjustLength(1));
+        }
 
         if (this.wordCountDown && this.wordCountUp) {
             this.wordCountDown.addEventListener('click', () => this.adjustWordCount(-1));
@@ -369,6 +379,30 @@ class PasswordController {
 
     }
 
+    updateLengthButtons() {
+        if (!this.lengthDown || !this.lengthUp) return;
+        const min = parseInt(this.lengthSlider.min, 10);
+        const max = parseInt(this.lengthSlider.max, 10);
+        const value = parseInt(this.lengthSlider.value, 10);
+        this.lengthDown.disabled = value <= min;
+        this.lengthUp.disabled = value >= max;
+    }
+
+    adjustLength(delta) {
+        const min = parseInt(this.lengthSlider.min, 10);
+        const max = parseInt(this.lengthSlider.max, 10);
+        const currentValue = parseInt(this.lengthSlider.value, 10);
+        const newValue = Math.max(min, Math.min(max, currentValue + delta));
+
+        if (newValue === currentValue) return;
+
+        this.lengthSlider.value = newValue;
+        this.lastModeValues[this.currentMode] = newValue;
+        this.updateLengthLabel(newValue);
+        this.updateLengthButtons();
+        this.generateAllPasswords();
+    }
+
     updateWordCountControls() {
         if (this.wordCountValue) {
             this.wordCountValue.textContent = this.wordCount;
@@ -569,6 +603,7 @@ class PasswordController {
             this.lengthSlider.value = newVal;
 
             this.updateLengthLabel(newVal);
+            this.updateLengthButtons();
         }
 
         this.updateWordCountVisibility();

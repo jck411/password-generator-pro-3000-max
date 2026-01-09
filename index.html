@@ -228,7 +228,11 @@
                                     </button>
                                 </span>
                             </div>
-                            <input type="range" id="length" min="8" max="128" value="16" aria-describedby="lengthValue">
+                            <div class="slider-with-buttons">
+                                <button type="button" class="slider-btn" id="lengthDown" aria-label="Decrease length">−</button>
+                                <input type="range" id="length" min="8" max="128" value="16" aria-describedby="lengthValue">
+                                <button type="button" class="slider-btn" id="lengthUp" aria-label="Increase length">+</button>
+                            </div>
                         </div>
                         <div class="control-group word-count-control" id="wordCountControl" hidden>
                             <div class="password-controls" role="group" aria-label="Word count">

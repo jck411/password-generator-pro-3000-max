@@ -20,7 +20,3 @@ export const SYMBOL_COUNT_CONFIG = {
     max: 8,
     default: 2
 };
-
-export const DEFAULT_LIMITS = {
-    maxPasswords: 10
-};

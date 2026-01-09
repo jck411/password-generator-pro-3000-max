@@ -194,20 +194,36 @@ class PasswordController {
             this.symbolPositionRandom.addEventListener('click', () => this.setSymbolPosition('random'));
         }
 
+        // Word category options - number of selected categories cannot exceed wordCount
+        const wordCategoryOptions = [
+            'objectsOnly', 'nflTeams', 'mlbTeams', 'nbaTeams',
+            'nhlTeams', 'eplTeams', 'iplTeams', 'laLigaTeams', 'f1Teams'
+        ];
+
         Object.entries(this.options).forEach(([key, option]) => {
             option.addEventListener('change', () => {
+                // humanMemorable is always mutually exclusive with all word categories
                 if (key === 'humanMemorable' && option.checked) {
                     this.options.rhymingPassword.checked = false;
-                    this.options.objectsOnly.checked = false;
-                    this.options.nflTeams.checked = false;
-                    this.options.mlbTeams.checked = false;
-                    this.options.nbaTeams.checked = false;
-                    this.options.nhlTeams.checked = false;
-                    this.options.eplTeams.checked = false;
-                    this.options.iplTeams.checked = false;
-                    this.options.laLigaTeams.checked = false;
-                    this.options.f1Teams.checked = false;
-                } else if ((key === 'rhymingPassword' || key === 'objectsOnly' || key === 'nflTeams' || key === 'mlbTeams' || key === 'nbaTeams' || key === 'nhlTeams' || key === 'eplTeams' || key === 'iplTeams' || key === 'laLigaTeams' || key === 'f1Teams') && option.checked) {
+                    wordCategoryOptions.forEach(cat => {
+                        this.options[cat].checked = false;
+                    });
+                } else if (wordCategoryOptions.includes(key) && option.checked) {
+                    // Count currently checked categories (excluding the one just checked)
+                    const currentlyChecked = wordCategoryOptions.filter(cat =>
+                        cat !== key && this.options[cat].checked
+                    );
+
+                    // If adding this category exceeds word count, uncheck oldest ones
+                    const maxCategories = this.wordCount;
+                    while (currentlyChecked.length >= maxCategories && currentlyChecked.length > 0) {
+                        const oldest = currentlyChecked.shift();
+                        this.options[oldest].checked = false;
+                    }
+
+                    // Always uncheck humanMemorable when a category is selected
+                    this.options.humanMemorable.checked = false;
+                } else if (key === 'rhymingPassword' && option.checked) {
                     this.options.humanMemorable.checked = false;
                 }
 
@@ -358,7 +374,23 @@ class PasswordController {
 
         if (nextValue === this.wordCount) return;
 
+        const previousValue = this.wordCount;
         this.wordCount = nextValue;
+        // If decreasing word count below the number of selected categories, uncheck excess
+        const wordCategoryOptions = [
+            'objectsOnly', 'nflTeams', 'mlbTeams', 'nbaTeams',
+            'nhlTeams', 'eplTeams', 'iplTeams', 'laLigaTeams', 'f1Teams'
+        ];
+        const checkedCategories = wordCategoryOptions.filter(cat => this.options[cat].checked);
+
+        // If more categories are checked than allowed by new word count, uncheck excess
+        if (checkedCategories.length > nextValue) {
+            // Uncheck all categories (since we can't determine which to keep)
+            wordCategoryOptions.forEach(cat => {
+                this.options[cat].checked = false;
+            });
+        }
+
         this.updateWordCountControls();
         this.generateAllPasswords();
     }

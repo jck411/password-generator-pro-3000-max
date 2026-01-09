@@ -584,7 +584,7 @@ class PasswordController {
             let displayValue = isAnyLength ? 'any' : value;
             let displayText = `${displayValue}`;
             if (actualLength) {
-                displayText += ` <span style="font-size: 0.8em; opacity: 0.7; font-weight: normal;">(Password length: ${actualLength})</span>`;
+                displayText += ` <span style="font-size: 0.8em; opacity: 0.7; font-weight: normal;">${actualLength}</span>`;
             }
             this.lengthValue.innerHTML = displayText;
         } else {

@@ -447,6 +447,29 @@ header {
     animation: spin 0.5s ease-out;
 }
 
+/* Clear button - red accent */
+.action-btn.clear-btn {
+    border-color: rgba(220, 110, 110, 0.4);
+    color: rgba(220, 110, 110, 0.9);
+    position: relative;
+}
+
+.action-btn.clear-btn:hover {
+    background: rgba(220, 110, 110, 0.15);
+    border-color: rgba(220, 110, 110, 0.8);
+    color: rgba(220, 110, 110, 1);
+}
+
+.action-btn.clear-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 /* Copy button - SVG icon states */
 .action-btn.copy-btn {
     border-color: rgba(110, 181, 168, 0.4);
@@ -538,6 +561,33 @@ header {
     gap: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
+}
+
+.strength-info-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.strength-info-btn:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.strength-info-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
 }
 
 .strength-dot {
@@ -1276,6 +1326,136 @@ header {
 
 .security-modal-theme .info-modal-header h2 {
     color: var(--text-primary);
+}
+
+.strength-modal-theme .info-modal-header h2 {
+    color: var(--accent);
+}
+
+.strength-modal-theme {
+    border-color: var(--accent);
+}
+
+/* Strength cards styling */
+.strength-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.strength-card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-md);
+    padding: 0.875rem 1rem;
+    transition: all var(--transition-fast);
+}
+
+.strength-card:hover {
+    transform: translateX(2px);
+    border-color: var(--border-strong);
+}
+
+.strength-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.strength-card-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.strength-card-header h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin: 0;
+    flex: 1;
+}
+
+.strength-card-length {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.125rem 0.5rem;
+    background: var(--bg-base);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+}
+
+.strength-card-body {
+    font-size: 0.8125rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.strength-card-body p {
+    margin: 0 0 0.375rem 0;
+}
+
+.strength-card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.strength-card-body strong {
+    color: var(--text-primary);
+}
+
+.strength-note {
+    font-size: 0.75rem;
+    opacity: 0.9;
+}
+
+/* Color variations for each strength level */
+.strength-weak .strength-card-dot {
+    background: var(--strength-weak);
+}
+
+.strength-weak .strength-card-header h3 {
+    color: var(--strength-weak);
+}
+
+.strength-weak {
+    border-left: 3px solid var(--strength-weak);
+}
+
+.strength-fair .strength-card-dot {
+    background: var(--strength-fair);
+}
+
+.strength-fair .strength-card-header h3 {
+    color: var(--strength-fair);
+}
+
+.strength-fair {
+    border-left: 3px solid var(--strength-fair);
+}
+
+.strength-strong .strength-card-dot {
+    background: var(--strength-good);
+}
+
+.strength-strong .strength-card-header h3 {
+    color: var(--strength-good);
+}
+
+.strength-strong {
+    border-left: 3px solid var(--strength-good);
+}
+
+.strength-very-strong .strength-card-dot {
+    background: var(--strength-excellent);
+}
+
+.strength-very-strong .strength-card-header h3 {
+    color: var(--strength-excellent);
+}
+
+.strength-very-strong {
+    border-left: 3px solid var(--strength-excellent);
 }
 
 /* Tips Sections in Modal */

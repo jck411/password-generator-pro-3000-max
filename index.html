@@ -62,7 +62,7 @@
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=1.2.1">
+    <link rel="stylesheet" href="style.css?v=1.2.2">
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -165,17 +165,26 @@
                         <div id="passwordList" class="password-list" role="list">
                             <div class="password-slot" data-index="0" role="listitem">
                                 <div class="password-display">
+                                    <button class="action-btn generate-row-btn" title="Generate new password"
+                                        aria-label="Generate new password">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path
+                                                d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+                                        </svg>
+                                    </button>
                                     <label for="password-0" class="visually-hidden">Generated password</label>
                                     <input type="text" id="password-0" class="password-output"
                                         placeholder="Your password appears here..." aria-label="Generated password">
                                     <div class="password-actions">
-                                        <button class="action-btn generate-row-btn" title="Generate new password"
-                                            aria-label="Generate new password">
+                                        <button class="action-btn clear-btn" title="Clear password"
+                                            aria-label="Clear password">
                                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                                 stroke-linejoin="round">
-                                                <path
-                                                    d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
+                                                <line x1="18" y1="6" x2="6" y2="18" />
+                                                <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
                                         </button>
                                         <button class="action-btn copy-btn" title="Copy to clipboard"
@@ -210,6 +219,13 @@
                                 <span class="password-strength-inline" aria-live="polite">
                                     <span class="strength-dot" id="strengthDot"></span>
                                     <span class="strength-text" id="strengthText">Strong</span>
+                                    <button id="strengthInfoBtn" class="strength-info-btn" title="Password strength information" aria-label="View password strength information">
+                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="12" y1="16" x2="12" y2="12"/>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                        </svg>
+                                    </button>
                                 </span>
                             </div>
                             <input type="range" id="length" min="8" max="128" value="16" aria-describedby="lengthValue">
@@ -450,7 +466,24 @@
         </div>
     </div>
 
-    <script type="module" src="src/main.js?v=1.2.1"></script>
+    <!-- Strength Info Modal -->
+    <div id="strengthModalOverlay" class="info-modal-overlay" role="dialog" aria-modal="true"
+        aria-labelledby="strengthModalTitle">
+        <div class="info-modal strength-modal-theme">
+            <div class="info-modal-header">
+                <h2 id="strengthModalTitle">
+                    <span class="modal-icon">📊</span>
+                    Password Strength Guidelines
+                </h2>
+                <button class="info-modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="info-modal-content" id="strengthModalContent">
+                <!-- Content populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="src/main.js?v=1.2.5"></script>
 </body>
 
 </html>

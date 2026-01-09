@@ -92,6 +92,7 @@ class PasswordController {
 
         this.customWordInput = document.getElementById('customWord');
         this.clearCustomWordBtn = document.getElementById('clearCustomWord');
+        this.clearPasswordBtn = document.querySelector('.clear-btn');
         this.customWordToggle = document.getElementById('customWordToggle');
         this.customWordSection = document.getElementById('customWordSection');
         this.wordPositionStart = document.getElementById('wordPositionStart');
@@ -105,6 +106,10 @@ class PasswordController {
         this.securityModalBtn = document.getElementById('securityModalBtn');
         this.securityModalOverlay = document.getElementById('securityModalOverlay');
         this.securityModalContent = document.getElementById('securityModalContent');
+
+        this.strengthInfoBtn = document.getElementById('strengthInfoBtn');
+        this.strengthModalOverlay = document.getElementById('strengthModalOverlay');
+        this.strengthModalContent = document.getElementById('strengthModalContent');
 
         const regularConfig = MODE_CONFIGS.regular;
         if (this.lengthSlider) {
@@ -132,9 +137,8 @@ class PasswordController {
 
     setDefaultOptions() {
         // Set default checked options on page load
-        this.options.humanMemorable.checked = true;
         this.options.leetSpeak.checked = true;
-        this.options.nflTeams.checked = true;
+        this.options.objectsOnly.checked = true;
 
         // Update mode to words and set slider to minimum for "any" word length
         this.checkModeAndUpdateSlider();
@@ -230,6 +234,34 @@ class PasswordController {
             });
         }
 
+        // Clear password button - unticks all options
+        if (this.clearPasswordBtn) {
+            this.clearPasswordBtn.addEventListener('click', () => {
+                // Clear the password field
+                const input = this.passwordList.querySelector('.password-output');
+                if (input) {
+                    input.value = '';
+                }
+                
+                // Untick all checkboxes
+                Object.values(this.options).forEach(option => {
+                    option.checked = false;
+                });
+                
+                // Clear custom word
+                if (this.customWordInput) {
+                    this.customWordInput.value = '';
+                }
+                
+                // Reset to default state
+                this.checkModeAndUpdateSlider();
+                this.updateWordCountVisibility();
+                this.updateNumberCountVisibility();
+                this.updateSymbolCountVisibility();
+                this.updateStrength(0);
+            });
+        }
+
         if (this.customWordToggle && this.customWordSection) {
             this.customWordToggle.addEventListener('click', () => {
                 const isExpanded = this.customWordToggle.getAttribute('aria-expanded') === 'true';
@@ -262,6 +294,7 @@ class PasswordController {
         this.passwordList.addEventListener('click', (e) => {
             const generateBtn = e.target.closest('.generate-row-btn');
             const copyBtn = e.target.closest('.copy-btn');
+            const clearBtn = e.target.closest('.clear-btn');
 
             if (generateBtn) {
                 const passwordSlot = generateBtn.closest('.password-slot');
@@ -275,6 +308,31 @@ class PasswordController {
                 const passwordSlot = copyBtn.closest('.password-slot');
                 const input = passwordSlot.querySelector('.password-output');
                 this.copyToClipboard(input, copyBtn);
+            }
+
+            if (clearBtn) {
+                const passwordSlot = clearBtn.closest('.password-slot');
+                const input = passwordSlot.querySelector('.password-output');
+                input.value = '';
+                
+                // Untick all checkboxes
+                Object.values(this.options).forEach(option => {
+                    option.checked = false;
+                });
+                
+                // Clear custom word
+                if (this.customWordInput) {
+                    this.customWordInput.value = '';
+                }
+                
+                // Reset to default state
+                this.checkModeAndUpdateSlider();
+                this.updateWordCountVisibility();
+                this.updateNumberCountVisibility();
+                this.updateSymbolCountVisibility();
+                
+                this.animatePasswordInput(input);
+                this.updateStrength(0);
             }
         });
 
@@ -724,6 +782,7 @@ class PasswordController {
         // Open modal buttons
         this.tipsModalBtn.addEventListener('click', () => this.openModal('tips'));
         this.securityModalBtn.addEventListener('click', () => this.openModal('security'));
+        this.strengthInfoBtn.addEventListener('click', () => this.openModal('strength'));
 
         // Close buttons inside modals
         const closeButtons = document.querySelectorAll('.info-modal-close');
@@ -732,7 +791,7 @@ class PasswordController {
         });
 
         // Close on overlay click
-        [this.tipsModalOverlay, this.securityModalOverlay].forEach((overlay) => {
+        [this.tipsModalOverlay, this.securityModalOverlay, this.strengthModalOverlay].forEach((overlay) => {
             overlay.addEventListener('click', (e) => {
                 if (e.target === overlay) {
                     this.closeAllModals();
@@ -751,7 +810,8 @@ class PasswordController {
     openModal(type) {
         const modals = {
             tips: this.tipsModalOverlay,
-            security: this.securityModalOverlay
+            security: this.securityModalOverlay,
+            strength: this.strengthModalOverlay
         };
 
         const modal = modals[type];
@@ -766,7 +826,7 @@ class PasswordController {
     }
 
     closeAllModals() {
-        [this.tipsModalOverlay, this.securityModalOverlay].forEach((overlay) => {
+        [this.tipsModalOverlay, this.securityModalOverlay, this.strengthModalOverlay].forEach((overlay) => {
             overlay.classList.remove('active');
         });
         document.body.style.overflow = ''; // Restore scroll
@@ -794,6 +854,58 @@ class PasswordController {
         this.securityModalContent.innerHTML = `
             <div class="tips-list">
                 ${securityTips.map((tip) => this.renderTipCard(tip)).join('')}
+            </div>
+        `;
+
+        this.strengthModalContent.innerHTML = `
+            <div class="strength-cards">
+                <div class="strength-card strength-weak">
+                    <div class="strength-card-header">
+                        <span class="strength-card-dot"></span>
+                        <h3>Weak</h3>
+                        <span class="strength-card-length">&lt; 12 chars</span>
+                    </div>
+                    <div class="strength-card-body">
+                        <p><strong>Avoid:</strong> Common words, names, dates, "Password1!", simple patterns</p>
+                        <p class="strength-note">⚠️ Likely guessable or in breach lists</p>
+                    </div>
+                </div>
+
+                <div class="strength-card strength-fair">
+                    <div class="strength-card-header">
+                        <span class="strength-card-dot"></span>
+                        <h3>Fair</h3>
+                        <span class="strength-card-length">12–14 chars</span>
+                    </div>
+                    <div class="strength-card-body">
+                        <p><strong>Use:</strong> Short passphrase or decent random • Make it unique</p>
+                        <p class="strength-note">⚡ OK for low-stakes, not ideal for important accounts</p>
+                    </div>
+                </div>
+
+                <div class="strength-card strength-strong">
+                    <div class="strength-card-header">
+                        <span class="strength-card-dot"></span>
+                        <h3>Strong</h3>
+                        <span class="strength-card-length">15–19 chars</span>
+                    </div>
+                    <div class="strength-card-body">
+                        <p><strong>Use:</strong> Multi-word passphrase or password-manager random</p>
+                        <p class="strength-note">✅ Unique per account • Modern standard for passwords</p>
+                    </div>
+                </div>
+
+                <div class="strength-card strength-very-strong">
+                    <div class="strength-card-header">
+                        <span class="strength-card-dot"></span>
+                        <h3>Very Strong</h3>
+                        <span class="strength-card-length">20+ chars</span>
+                    </div>
+                    <div class="strength-card-body">
+                        <p><strong>Use:</strong> Long passphrase or password-manager random</p>
+                        <p class="strength-note">🔒 Best paired with <strong>MFA</strong> for maximum security</p>
+                    </div>
+                </div>
             </div>
         `;
 

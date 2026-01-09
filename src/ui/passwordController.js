@@ -582,11 +582,7 @@ class PasswordController {
         if (this.currentMode === 'words') {
             this.lengthLabelText.textContent = 'Word length';
             let displayValue = isAnyLength ? 'any' : value;
-            let displayText = `${displayValue}`;
-            if (actualLength) {
-                displayText += ` <span style="font-size: 0.8em; opacity: 0.7; font-weight: normal;">${actualLength}</span>`;
-            }
-            this.lengthValue.innerHTML = displayText;
+            this.lengthValue.textContent = displayValue;
         } else {
             this.lengthLabelText.textContent = 'Length';
             this.lengthValue.textContent = value;
@@ -771,7 +767,8 @@ class PasswordController {
 
     updateStrength(password) {
         const { text, color } = strengthMetaByLength(password);
-        this.strengthText.textContent = text;
+        const length = password ? password.length : 0;
+        this.strengthText.textContent = `${text} (${length})`;
         this.strengthText.style.color = color;
         this.strengthDot.style.background = color;
     }

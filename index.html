@@ -160,122 +160,130 @@
                     </div>
                 </section>
 
-                <section class="password-section" aria-label="Generated Passwords">
-                    <div id="passwordList" class="password-list" role="list">
-                        <div class="password-slot" data-index="0" role="listitem">
-                            <div class="password-display">
-                                <label for="password-0" class="visually-hidden">Generated password</label>
-                                <input type="text" id="password-0" class="password-output"
-                                    placeholder="Your password appears here..." aria-label="Generated password">
-                                <div class="password-actions">
-                                    <button class="action-btn generate-row-btn" title="Generate new password"
-                                        aria-label="Generate new password">
-                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <path
-                                                d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
-                                        </svg>
-                                    </button>
-                                    <button class="action-btn copy-btn" title="Copy to clipboard"
-                                        aria-label="Copy password to clipboard">
-                                        <span class="copy-icon-default">
+                <!-- Sticky Header Wrapper -->
+                <div id="passwordSticky" class="sticky-header">
+                    <section class="password-section" aria-label="Generated Passwords">
+                        <div id="passwordList" class="password-list" role="list">
+                            <div class="password-slot" data-index="0" role="listitem">
+                                <div class="password-display">
+                                    <label for="password-0" class="visually-hidden">Generated password</label>
+                                    <input type="text" id="password-0" class="password-output"
+                                        placeholder="Your password appears here..." aria-label="Generated password">
+                                    <div class="password-actions">
+                                        <button class="action-btn generate-row-btn" title="Generate new password"
+                                            aria-label="Generate new password">
                                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                                 stroke-linejoin="round">
-                                                <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
-                                                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                <path
+                                                    d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" />
                                             </svg>
-                                        </span>
-                                        <span class="copy-icon-success">
+                                        </button>
+                                        <button class="action-btn copy-btn" title="Copy to clipboard"
+                                            aria-label="Copy password to clipboard">
+                                            <span class="copy-icon-default">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                                                </svg>
+                                            </span>
+                                            <span class="copy-icon-success">
+                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <polyline points="20 6 9 17 4 12" />
+                                                </svg>
+                                            </span>
+                                        </button>
+                                        <button class="action-btn remove-row-btn" title="Remove this password"
+                                            aria-label="Remove this password">
                                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                                                 stroke-linejoin="round">
-                                                <polyline points="20 6 9 17 4 12" />
+                                                <line x1="18" y1="6" x2="6" y2="18" />
+                                                <line x1="6" y1="6" x2="18" y2="18" />
                                             </svg>
-                                        </span>
-                                    </button>
-                                    <button class="action-btn remove-row-btn" title="Remove this password"
-                                        aria-label="Remove this password">
-                                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                            stroke-linejoin="round">
-                                            <line x1="18" y1="6" x2="6" y2="18" />
-                                            <line x1="6" y1="6" x2="18" y2="18" />
-                                        </svg>
-                                    </button>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="password-section-actions">
-                        <button id="addPasswordBtn" class="add-row-btn" title="Add another password"
-                            aria-label="Add password field">
-                            <span class="add-icon">+</span> Add Password
-                        </button>
-                    </div>
-                </section>
+                        <div class="password-section-actions">
+                            <button id="addPasswordBtn" class="add-row-btn" title="Add another password"
+                                aria-label="Add password field">
+                                <span class="add-icon">+</span> Add Password
+                            </button>
+                        </div>
+                    </section>
 
-                <section class="controls" aria-label="Password Options">
-                    <div class="control-group">
-                        <div class="control-header">
-                            <label for="length"><span id="lengthLabelText">Length</span>: <span
-                                    id="lengthValue">16</span></label>
-                            <span class="password-strength-inline" aria-live="polite">
-                                <span class="strength-dot" id="strengthDot"></span>
-                                <span class="strength-text" id="strengthText">Strong</span>
-                            </span>
+                    <section class="controls sticky-controls" aria-label="Password Options">
+                        <div class="control-group">
+                            <div class="control-header">
+                                <label for="length"><span id="lengthLabelText">Length</span>: <span
+                                        id="lengthValue">16</span></label>
+                                <span class="password-strength-inline" aria-live="polite">
+                                    <span class="strength-dot" id="strengthDot"></span>
+                                    <span class="strength-text" id="strengthText">Strong</span>
+                                </span>
+                            </div>
+                            <input type="range" id="length" min="8" max="128" value="16" aria-describedby="lengthValue">
                         </div>
-                        <input type="range" id="length" min="8" max="128" value="16" aria-describedby="lengthValue">
-                    </div>
-                    <div class="control-group word-count-control" id="wordCountControl" hidden>
-                        <div class="password-controls" role="group" aria-label="Word count">
-                            <button type="button" class="pw-count-btn" id="wordCountDown"
-                                aria-label="Decrease word count">-</button>
-                            <span class="password-count-label">Word count: <span id="wordCountValue">1</span></span>
-                            <button type="button" class="pw-count-btn" id="wordCountUp"
-                                aria-label="Increase word count">+</button>
+                        <div class="control-group word-count-control" id="wordCountControl" hidden>
+                            <div class="password-controls" role="group" aria-label="Word count">
+                                <button type="button" class="pw-count-btn" id="wordCountDown"
+                                    aria-label="Decrease word count">-</button>
+                                <span class="password-count-label">Word count: <span id="wordCountValue">1</span></span>
+                                <button type="button" class="pw-count-btn" id="wordCountUp"
+                                    aria-label="Increase word count">+</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group number-count-control" id="numberCountControl" hidden>
-                        <div class="password-controls" role="group" aria-label="Number count">
-                            <button type="button" class="pw-count-btn" id="numberCountDown"
-                                aria-label="Decrease number count">-</button>
-                            <span class="password-count-label">Number count: <span id="numberCountValue">2</span></span>
-                            <button type="button" class="pw-count-btn" id="numberCountUp"
-                                aria-label="Increase number count">+</button>
+                        <div class="control-group number-count-control" id="numberCountControl" hidden>
+                            <div class="password-controls" role="group" aria-label="Number count">
+                                <button type="button" class="pw-count-btn" id="numberCountDown"
+                                    aria-label="Decrease number count">-</button>
+                                <span class="password-count-label">Number count: <span
+                                        id="numberCountValue">2</span></span>
+                                <button type="button" class="pw-count-btn" id="numberCountUp"
+                                    aria-label="Increase number count">+</button>
+                            </div>
+                            <div class="number-position-toggle" role="group" aria-label="Number position">
+                                <button type="button" id="numberPositionStart" class="position-btn active"
+                                    title="Place numbers at start" aria-pressed="true">start</button>
+                                <span class="position-separator">|</span>
+                                <button type="button" id="numberPositionEnd" class="position-btn"
+                                    title="Place numbers at end" aria-pressed="false">end</button>
+                                <span class="position-separator">|</span>
+                                <button type="button" id="numberPositionRandom" class="position-btn"
+                                    title="Randomize number positions" aria-pressed="false">random</button>
+                            </div>
                         </div>
-                        <div class="number-position-toggle" role="group" aria-label="Number position">
-                            <button type="button" id="numberPositionStart" class="position-btn active"
-                                title="Place numbers at start" aria-pressed="true">start</button>
-                            <span class="position-separator">|</span>
-                            <button type="button" id="numberPositionEnd" class="position-btn"
-                                title="Place numbers at end" aria-pressed="false">end</button>
-                            <span class="position-separator">|</span>
-                            <button type="button" id="numberPositionRandom" class="position-btn"
-                                title="Randomize number positions" aria-pressed="false">random</button>
+                        <div class="control-group symbol-count-control" id="symbolCountControl" hidden>
+                            <div class="password-controls" role="group" aria-label="Symbol count">
+                                <button type="button" class="pw-count-btn" id="symbolCountDown"
+                                    aria-label="Decrease symbol count">-</button>
+                                <span class="password-count-label">Symbol count: <span
+                                        id="symbolCountValue">2</span></span>
+                                <button type="button" class="pw-count-btn" id="symbolCountUp"
+                                    aria-label="Increase symbol count">+</button>
+                            </div>
+                            <div class="symbol-position-toggle" role="group" aria-label="Symbol position">
+                                <button type="button" id="symbolPositionStart" class="position-btn active"
+                                    title="Place symbols at start" aria-pressed="true">start</button>
+                                <span class="position-separator">|</span>
+                                <button type="button" id="symbolPositionEnd" class="position-btn"
+                                    title="Place symbols at end" aria-pressed="false">end</button>
+                                <span class="position-separator">|</span>
+                                <button type="button" id="symbolPositionRandom" class="position-btn"
+                                    title="Randomize symbol positions" aria-pressed="false">random</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="control-group symbol-count-control" id="symbolCountControl" hidden>
-                        <div class="password-controls" role="group" aria-label="Symbol count">
-                            <button type="button" class="pw-count-btn" id="symbolCountDown"
-                                aria-label="Decrease symbol count">-</button>
-                            <span class="password-count-label">Symbol count: <span id="symbolCountValue">2</span></span>
-                            <button type="button" class="pw-count-btn" id="symbolCountUp"
-                                aria-label="Increase symbol count">+</button>
-                        </div>
-                        <div class="symbol-position-toggle" role="group" aria-label="Symbol position">
-                            <button type="button" id="symbolPositionStart" class="position-btn active"
-                                title="Place symbols at start" aria-pressed="true">start</button>
-                            <span class="position-separator">|</span>
-                            <button type="button" id="symbolPositionEnd" class="position-btn"
-                                title="Place symbols at end" aria-pressed="false">end</button>
-                            <span class="position-separator">|</span>
-                            <button type="button" id="symbolPositionRandom" class="position-btn"
-                                title="Randomize symbol positions" aria-pressed="false">random</button>
-                        </div>
-                    </div>
 
+                    </section>
+                </div>
+
+                <section class="controls scrollable-controls">
                     <fieldset class="options">
                         <legend class="visually-hidden">Character Options</legend>
                         <div class="option" title="Include capital letters A-Z for stronger passwords">

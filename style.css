@@ -69,9 +69,6 @@ html {
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Prevent horizontal overflow and iOS elastic scrolling issues */
-    overflow-x: hidden;
-    overscroll-behavior: none;
 }
 
 body {
@@ -1582,4 +1579,39 @@ fieldset.options {
     border: none;
     padding: 0;
     margin: 0;
+}
+
+/* ==========================================================================
+   Sticky Header
+   ========================================================================== */
+
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg-surface);
+    /* Counteract parent padding to go full width */
+    margin: 0 -2rem 0;
+    padding: 1rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-default);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    /* Ensure nice transition when it becomes sticky */
+}
+
+/* Adjust the internal password section margin since we're now inside a wrapper */
+.sticky-header .password-section {
+    margin-bottom: 1.5rem;
+}
+
+/* Ensure padding matches mobile layout */
+@media (max-width: 640px) {
+    .sticky-header {
+        margin: 0 -1.5rem 0;
+        padding: 1rem 1.5rem 1.25rem;
+    }
+}
+
+/* Add spacing for the scrollable controls below */
+.scrollable-controls {
+    padding-top: 1.5rem;
 }

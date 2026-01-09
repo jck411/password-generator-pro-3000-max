@@ -41,13 +41,13 @@ export const calculateStrength = ({ password, isWordMode }) => {
 };
 
 export const strengthMeta = (score) => {
-    if (score < 40) {
+    if (score < 30) {
         return { text: 'Weak', color: '#e05252' };
     }
-    if (score < 60) {
+    if (score < 50) {
         return { text: 'Fair', color: '#e08c52' };
     }
-    if (score < 80) {
+    if (score < 70) {
         return { text: 'Strong', color: '#e2a84b' };
     }
     return { text: 'Very Strong', color: '#52c4a0' };
